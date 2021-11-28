@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="colorPrimary">#E0E0E0</color>-->
+    <color name="colorPrimary">#FEDBD0</color>
+<!--    colorPrimaryDark controls the color of the status bar-->
+    <color name="colorPrimaryDark">#FBB8AC</color>
+    <color name="colorOnPrimary">#442C2E</color>
+    <color name="colorSecondary">#FEEAE6</color>
+    <color name="colorAccent">#FEEAE6</color>
+    <color name="transparent_divider">#00000000</color>
+    <color name="dividerHorizontal">#CCCCCC</color>
+
+
+
+    <color name="textColorPrimary">#442C2E</color>
+<!--    <color name="toolbarIconColor">#FFFFFF</color>-->
+<!--    <color name="loginPageBackgroundColor">#FFFFFF</color>-->
+<!--    <color name="productGridBackgroundColor">#FFFFFF</color>-->
+
+</resources>

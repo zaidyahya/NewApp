@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageButton
+        android:id="@+id/button_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        android:background="?attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+    <View
+        android:id="@+id/dbma_margin_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/button_close"
+        android:background="@color/transparent_divider" />
+
+    <View
+        android:id="@+id/dbma_divider_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dbma_margin_horizontal_0"
+        android:background="?attr/dividerHorizontal" />
+
+    <Button
+        android:id="@+id/button_add_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/dbma_divider_horizontal_0"
+        style="?attr/borderlessButtonStyle"
+        app:icon="@drawable/ic_baseline_add_24"
+        app:iconGravity="textStart"
+        android:text="Add New Address" />
+
+    <View
+        android:id="@+id/dbma_divider_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/button_add_new"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="?attr/dividerHorizontal" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_pick_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dbma_divider_horizontal_1"
+        app:layout_constraintBottom_toTopOf="@id/dbma_margin_horizontal_1"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_address"
+        tools:itemCount="3" />
+
+    <View
+        android:id="@+id/dbma_margin_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_pick_address"
+        android:background="@color/transparent_divider" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.store.fragment.StoreFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
+
+            <ImageView
+                android:id="@+id/image_view_online_store"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintTop_toTopOf="@id/guideline_top"
+                android:src="@drawable/online_store" />
+
+            <TextView
+                android:id="@+id/text_view_your_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintTop_toBottomOf="@id/image_view_online_store"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="Your Store"
+                android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+            <View
+                android:id="@+id/s_divider_horizontal_0"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_your_store"
+                android:background="?attr/dividerHorizontal" />
+
+            <TextView
+                android:id="@+id/text_view_my_orders"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/s_divider_horizontal_0"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="My Orders"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_outline_shopping_bag_24"
+                android:drawablePadding="@dimen/margin_medium" />
+
+            <View
+                android:id="@+id/s_divider_horizontal_1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_my_orders"
+                android:background="?attr/dividerHorizontal" />
+
+            <TextView
+                android:id="@+id/text_view_my_earnings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/s_divider_horizontal_1"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="My Earnings"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_attach_money_24"
+                android:drawablePadding="@dimen/margin_medium" />
+
+            <View
+                android:id="@+id/s_divider_horizontal_2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_my_earnings"
+                android:background="?attr/dividerHorizontal" />
+
+            <TextView
+                android:id="@+id/text_view_my_customers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/s_divider_horizontal_2"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="My Customers"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_people_outline_24"
+                android:drawablePadding="@dimen/margin_medium" />
+
+            <View
+                android:id="@+id/s_divider_horizontal_3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_my_customers"
+                android:background="?attr/dividerHorizontal" />
+
+            <TextView
+                android:id="@+id/text_view_saved_catalogues"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/s_divider_horizontal_3"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="Saved Catalogues"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_favorite_border_24"
+                android:drawablePadding="@dimen/margin_medium" />
+
+            <View
+                android:id="@+id/s_divider_horizontal_4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_saved_catalogues"
+                android:background="?attr/dividerHorizontal" />
+
+            <TextView
+                android:id="@+id/text_view_shared_catalogues"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/s_divider_horizontal_4"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="Shared Catalogues"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_outline_share_24"
+                android:drawablePadding="@dimen/margin_medium" />
+
+            <View
+                android:id="@+id/s_divider_horizontal_5"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_shared_catalogues"
+                android:background="?attr/dividerHorizontal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

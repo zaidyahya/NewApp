@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    <style name="Widget.TheApp.Toolbar" parent="Widget.AppCompat.Toolbar">-->
+<!--        <item name="android:background">?attr/colorAccent</item>-->
+<!--        &lt;!&ndash;        To have white text and icons on ToolBar, uncomment this line and comment android:theme line + windowStatusBar in themes.xml&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>&ndash;&gt;-->
+<!--        <item name="android:theme">@style/Theme.TheApp</item>-->
+<!--        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>-->
+<!--    </style>-->
+
+    <style name="Widget.TheApp.Button" parent="Widget.MaterialComponents.Button.TextButton" >
+<!--        <item name="android:textColor">?android:attr/textColorPrimary</item>-->
+        <item name="backgroundTint">?attr/colorPrimaryDark</item>
+    </style>
+
+<!--    <style name="Widget.TheApp.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">-->
+<!--        <item name="android:textColor">?android:attr/textColorPrimary</item>-->
+<!--        <item name="android:background">?attr/colorAccent</item>-->
+<!--    </style>-->
+
+    <style name="Widget.TheApp.ChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+
+    </style>
+
+    <style name="ModalBottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+</resources>

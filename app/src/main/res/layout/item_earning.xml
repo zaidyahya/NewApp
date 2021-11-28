@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <View
+        android:id="@+id/ie_margin_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/ie_margin_horizontal_0"
+        android:text="29-11-2021"
+        android:textAppearance="?attr/textAppearanceSubtitle2"/>
+
+    <View
+        android:id="@+id/ie_margin_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_date"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_order_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/ie_margin_horizontal_1"
+        android:text="Order #:" />
+
+    <TextView
+        android:id="@+id/text_view_order_number_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_order_number"
+        android:text="XYZ3312SFFS" />
+
+    <View
+        android:id="@+id/ie_margin_horizontal_2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_order_number_value"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/ie_margin_horizontal_2"
+        android:text="Rs. 300.00"
+        android:textAppearance="?attr/textAppearanceBody2" />
+
+    <View
+        android:id="@+id/ie_divider_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/ie_margin_horizontal_2"
+        android:background="?attr/dividerHorizontal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

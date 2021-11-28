@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageButton
+        android:id="@+id/button_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        android:background="?attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+    <View
+        android:id="@+id/dbmp_margin_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/button_close"
+        android:background="@color/transparent_divider" />
+
+    <ImageView
+        android:id="@+id/image_view_product"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_0"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        android:layout_marginTop="@dimen/margin_extra_small"
+        tools:srcCompat="@drawable/wide" />
+
+    <TextView
+        android:id="@+id/text_view_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_0"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        app:layout_constraintEnd_toStartOf="@id/button_remove"
+        android:paddingStart="@dimen/margin_medium"
+        android:text="Pretty Ravishing Women Tshirts"
+        android:textAppearance="?attr/textAppearanceSubtitle2" />
+
+    <Button
+        android:id="@+id/button_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_0"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/text_view_name"
+        app:layout_constraintBottom_toTopOf="@id/dbmp_margin_horizontal_1"
+        style="?attr/borderlessButtonStyle"
+        android:minHeight="0dp"
+        android:text="Remove" />
+
+    <View
+        android:id="@+id/dbmp_margin_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        app:layout_constraintTop_toBottomOf="@id/text_view_name"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_1"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        android:paddingStart="@dimen/margin_medium"
+        android:text="Rs. 500"
+        android:textAppearance="?attr/textAppearanceOverline" />
+
+    <View
+        android:id="@+id/dbmp_margin_horizontal_2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        app:layout_constraintTop_toBottomOf="@id/text_view_price"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_2"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        app:layout_constraintBottom_toBottomOf="@id/text_input_layout_size"
+        android:paddingStart="@dimen/margin_medium"
+        android:paddingEnd="@dimen/margin_medium"
+        android:text="Size"
+        android:textAppearance="?attr/textAppearanceOverline" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_2"
+        app:layout_constraintStart_toEndOf="@id/text_view_size"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        app:hintEnabled="false" >
+
+        <AutoCompleteTextView
+            android:layout_width="wrap_content"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:layout_height="38dp"
+            android:inputType="none"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/text_view_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_2"
+        app:layout_constraintStart_toEndOf="@id/text_input_layout_size"
+        app:layout_constraintBottom_toBottomOf="@id/text_input_layout_size"
+        android:paddingStart="@dimen/margin_medium"
+        android:paddingEnd="@dimen/margin_medium"
+        android:text="Qty"
+        android:textAppearance="?attr/textAppearanceOverline" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/text_view_quantity"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_quantity"
+        android:text="3"
+        android:textAppearance="?attr/textAppearanceOverline" />
+
+    <View
+        android:id="@+id/dbmp_margin_horizontal_3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_size"
+        android:background="@color/transparent_divider" />
+
+    <View
+        android:id="@+id/dbmp_divider_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_3"
+        android:background="?attr/dividerHorizontal" />
+
+    <View
+        android:id="@+id/dbmp_margin_horizontal_4"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_divider_horizontal_0"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_4"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        android:text="Total Price"
+        android:textAppearance="?attr/textAppearanceSubtitle2" />
+
+    <TextView
+        android:id="@+id/text_view_total_price_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_4"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        android:text="Rs. 400"
+        android:textAppearance="?attr/textAppearanceSubtitle2" />
+
+    <View
+        android:id="@+id/dbmp_margin_horizontal_5"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_total_price"
+        android:background="@color/transparent_divider" />
+
+    <View
+        android:id="@+id/dbmp_divider_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_margin_horizontal_5"
+        android:background="?attr/dividerHorizontal" />
+
+    <Button
+        android:id="@+id/button_continue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dbmp_divider_horizontal_1"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:backgroundTint="?attr/colorPrimary"
+        android:textColor="?attr/colorOnPrimary"
+        android:text="Continue" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/marketFragment">
+
+    <fragment
+        android:id="@+id/marketFragment"
+        android:name="com.example.theapp.ui.market.fragment.MarketFragment"
+        android:label="fragment_market"
+        tools:layout="@layout/fragment_market" >
+        <action
+            android:id="@+id/action_marketFragment_to_catalogueFragment"
+            app:destination="@id/catalogueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/catalogueFragment"
+        android:name="com.example.theapp.ui.catalogue.fragment.CatalogueFragment"
+        android:label="fragment_catalogue"
+        tools:layout="@layout/fragment_catalogue" >
+        <action
+            android:id="@+id/action_catalogueFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+        <argument
+            android:name="catalogue"
+            app:argType="com.example.theapp.model.CatalogueNew" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingCartFragment"
+        android:name="com.example.theapp.ui.checkout.shoppingcart.fragment.ShoppingCartFragment"
+        android:label="fragment_shopping_cart"
+        tools:layout="@layout/fragment_shopping_cart" >
+        <action
+            android:id="@+id/action_shoppingCartFragment_to_pickAddressFragment"
+            app:destination="@id/pickAddressFragment" />
+    </fragment><action android:id="@+id/action_global_shoppingCartFragment" app:destination="@id/shoppingCartFragment"/>
+    <fragment
+        android:id="@+id/storeFragment"
+        android:name="com.example.theapp.ui.store.fragment.StoreFragment"
+        android:label="fragment_store"
+        tools:layout="@layout/fragment_store" >
+        <action
+            android:id="@+id/action_storeFragment_to_myOrdersFragment"
+            app:destination="@id/myOrdersFragment" />
+        <action
+            android:id="@+id/action_storeFragment_to_myEarningsFragment"
+            app:destination="@id/myEarningsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.theapp.ui.account.fragment.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.theapp.ui.product.fragment.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_productFragment_to_shoppingCartFragment"
+            app:destination="@id/shoppingCartFragment" />
+        <argument
+            android:name="product"
+            app:argType="com.example.theapp.model.ProductNew" />
+    </fragment>
+    <fragment
+        android:id="@+id/pickAddressFragment"
+        android:name="com.example.theapp.ui.checkout.pickaddress.fragment.PickAddressFragment"
+        android:label="fragment_pick_address"
+        tools:layout="@layout/fragment_pick_address" >
+        <action
+            android:id="@+id/action_pickAddressFragment_to_addNewAddressFragment"
+            app:destination="@id/addNewAddressFragment" />
+        <action
+            android:id="@+id/action_pickAddressFragment_to_orderSummaryFragment"
+            app:destination="@id/orderSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewAddressFragment"
+        android:name="com.example.theapp.ui.addnewaddress.fragment.AddNewAddressFragment"
+        android:label="fragment_add_new_address"
+        tools:layout="@layout/fragment_add_new_address" >
+        <action
+            android:id="@+id/action_addNewAddressFragment_to_pickAddressFragment"
+            app:destination="@id/pickAddressFragment"
+            app:popUpTo="@id/pickAddressFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="customer"
+            app:argType="com.example.theapp.model.Customer"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderSummaryFragment"
+        android:name="com.example.theapp.ui.checkout.ordersummary.fragment.OrderSummaryFragment"
+        android:label="fragment_order_summary"
+        tools:layout="@layout/fragment_order_summary" >
+        <action
+            android:id="@+id/action_orderSummaryFragment_to_orderPlacedFragment"
+            app:destination="@id/orderPlacedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myOrdersFragment"
+        android:name="com.example.theapp.ui.myorders.fragment.MyOrdersFragment"
+        android:label="fragment_my_orders"
+        tools:layout="@layout/fragment_my_orders" >
+        <action
+            android:id="@+id/action_myOrdersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myEarningsFragment"
+        android:name="com.example.theapp.ui.myearnings.fragment.MyEarningsFragment"
+        android:label="fragment_my_earnings"
+        tools:layout="@layout/fragment_my_earnings" />
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.theapp.ui.myorders.fragment.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
+    <fragment
+        android:id="@+id/orderPlacedFragment"
+        android:name="com.example.theapp.ui.checkout.orderplaced.fragment.OrderPlacedFragment"
+        android:label="fragment_order_placed"
+        tools:layout="@layout/fragment_order_placed" >
+        <action
+            android:id="@+id/action_orderPlacedFragment_to_marketFragment"
+            app:destination="@id/marketFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingCartEmptyFragment"
+        android:name="com.example.theapp.ui.checkout.shoppingcart.fragment.ShoppingCartEmptyFragment"
+        android:label="fragment_shopping_cart_empty"
+        tools:layout="@layout/fragment_shopping_cart_empty" >
+        <action
+            android:id="@+id/action_shoppingCartEmptyFragment_to_marketFragment"
+            app:destination="@id/marketFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_shoppingCartEmptyFragment" app:destination="@id/shoppingCartEmptyFragment" />
+</navigation>

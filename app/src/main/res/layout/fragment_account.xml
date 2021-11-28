@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.fragment.AccountFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
+
+            <TextView
+                android:id="@+id/text_view_user_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintTop_toTopOf="@id/guideline_top"
+                app:layout_constraintBottom_toTopOf="@id/a_divider_horizontal_0"
+                android:paddingBottom="@dimen/margin_medium"
+                android:paddingStart="@dimen/margin_extra_small"
+                android:text="Zaid Yahya"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_account_circle_56"
+                android:drawablePadding="@dimen/margin_medium"
+                app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+            <View
+                android:id="@+id/a_divider_horizontal_0"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_user_name"
+                android:background="?attr/dividerHorizontal" />
+
+            <TextView
+                android:id="@+id/text_view_account_information"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/a_divider_horizontal_0"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="Account Information"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_account_balance_24"
+                android:drawablePadding="@dimen/margin_medium" />
+
+            <View
+                android:id="@+id/a_divider_horizontal_1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_account_information"
+                android:background="?attr/dividerHorizontal" />
+
+            <TextView
+                android:id="@+id/text_view_help"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/a_divider_horizontal_1"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="Help"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_round_help_24"
+                android:drawablePadding="@dimen/margin_medium" />
+
+            <View
+                android:id="@+id/a_divider_horizontal_2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_help"
+                android:background="?attr/dividerHorizontal" />
+
+            <TextView
+                android:id="@+id/text_view_contact_us"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/a_divider_horizontal_2"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                android:paddingTop="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                android:text="Contact Us"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_call_24"
+                android:drawablePadding="@dimen/margin_medium" />
+
+            <View
+                android:id="@+id/a_divider_horizontal_3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_contact_us"
+                android:background="?attr/dividerHorizontal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

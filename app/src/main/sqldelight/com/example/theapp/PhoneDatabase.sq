@@ -1,0 +1,177 @@
+CREATE TABLE UserEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    phone_number TEXT NOT NULL
+);
+
+CREATE TABLE CategoryEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE CatalogueEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    category_id TEXT NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES CategoryEntity(id)
+);
+
+CREATE TABLE ProductEntity(
+    id TEXT PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    price INTEGER AS Int NOT NULL,
+    catalogue_id TEXT NOT NULL,
+    FOREIGN KEY (catalogue_id) REFERENCES CatalogueEntity(id)
+);
+
+CREATE TABLE ProductVariantEntity(
+    id TEXT PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    abbreviation TEXT NOT NULL,
+    product_id TEXT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES ProductEntity(id)
+);
+
+-- CREATE TABLE ShoppingCartEntity(
+--     id TEXT PRIMARY KEY NOT NULL,
+--     product_charges TEXT,
+--     margin TEXT,
+--     cash_to_collect TEXT,
+--     delivery_charges TEXT,
+--     customerId TEXT
+-- );
+
+CREATE TABLE ShoppingCartItemEntity(
+    id TEXT PRIMARY KEY NOT NULL,
+    product_variant_id TEXT NOT NULL,
+    quantity INTEGER AS Int NOT NULL,
+    FOREIGN KEY (product_variant_id) REFERENCES ProductVariantEntity(id)
+);
+
+-------------------- Category
+
+insertCategory:
+INSERT INTO CategoryEntity
+(id, name)
+VALUES (?, ?);
+
+
+-------------------- Catalogue
+
+selectCatalogue:
+SELECT *
+FROM CatalogueEntity
+WHERE id = ?;
+
+insertCatalogue:
+INSERT INTO CatalogueEntity
+(id, name, description, category_id)
+VALUES (?, ?, ?, ?);
+
+getCatalogues:
+SELECT ctl.id, ctl.name, ctl.description, cat.name AS category,
+prd.id AS product_id, prd.name AS product_name, prd.price AS product_price,
+prdvar.id AS product_variant_id, prdvar.name AS product_variant_name, prdvar.abbreviation AS abbreviation
+FROM CatalogueEntity ctl
+INNER JOIN CategoryEntity cat ON cat.id = ctl.category_id
+INNER JOIN ProductEntity prd ON prd.catalogue_id = ctl.id
+INNER JOIN ProductVariantEntity prdvar ON prdvar.product_id = prd.id;
+
+
+-------------------- Product
+insertProduct:
+INSERT INTO ProductEntity
+(id, name, price, catalogue_id)
+VALUES (?, ?, ?, ?);
+
+selectProduct:
+SELECT *
+FROM ProductEntity prd
+INNER JOIN ProductVariantEntity prdvar ON prdvar.product_id = prd.id;
+
+
+-------------------- Product Variant
+selectProductVariantsByProductId:
+SELECT *
+FROM ProductVariantEntity
+WHERE product_id = ?;
+
+insertProductVariant:
+INSERT INTO ProductVariantEntity
+(id, name, abbreviation, product_id)
+VALUES (?, ?, ?, ?);
+
+
+-------------------- Shopping Cart
+-- selectShoppingCart:
+-- SELECT sc.id, sc.product_charges, sc.margin, sc.cash_to_collect, sc.delivery_charges, sc.customerId,
+-- scit.id AS shopping_cart_item_id, scit.quantity,
+-- prdvar.abbreviation AS size_abbreviation,
+-- prd.id AS product_id, prd.name AS product_name, prd.price AS product_price
+-- FROM ShoppingCartEntity sc
+-- INNER JOIN ShoppingCartItemEntity scit ON scit.shoppingCartId = sc.id
+-- INNER JOIN ProductVariantEntity prdvar ON prdvar.id = scit.productVariantId
+-- INNER JOIN ProductEntity prd ON prd.id = prdvar.productId
+-- WHERE sc.id = ?;
+--
+-- insertShoppingCart:
+-- INSERT INTO ShoppingCartEntity
+-- (id, product_charges, margin, cash_to_collect, delivery_charges, customerId)
+-- VALUES (?, ?, ?, ?, ?, ?);
+--
+-- updateShoppingCart:
+-- UPDATE ShoppingCartEntity
+-- SET
+--     product_charges = ?
+-- WHERE id = ?;
+
+
+-------------------- Shopping Cart Item
+selectAllShoppingCartItems:
+SELECT *
+FROM ShoppingCartItemEntity;
+
+selectAllShoppingCartItemsWithDetails:
+SELECT scit.id, scit.product_variant_id, scit.quantity,
+prdvar.abbreviation AS size_abbreviation,
+prd.id AS product_id, prd.name AS product_name, prd.price AS product_price
+FROM ShoppingCartItemEntity scit
+INNER JOIN ProductVariantEntity prdvar ON prdvar.id = scit.product_variant_id
+INNER JOIN ProductEntity prd ON prd.id = prdvar.product_id;
+
+insertShoppingCartItem:
+INSERT INTO ShoppingCartItemEntity
+(id, product_variant_id, quantity)
+VALUES (?, ?, ?);
+
+updateShoppingCartItem:
+UPDATE ShoppingCartItemEntity
+SET
+    product_variant_id = ?,
+    quantity = ?
+WHERE id = ?;
+
+deleteShoppingCartItem:
+DELETE FROM ShoppingCartItemEntity
+WHERE id = ?;
+
+
+-------------------- User
+
+selectUser:
+SELECT *
+FROM UserEntity
+WHERE id = ?;
+
+insertUser:
+INSERT INTO UserEntity
+(id, first_name, last_name, phone_number)
+VALUES (?, ?, ?, ?);
+
+deleteUser:
+DELETE FROM UserEntity
+WHERE id = ?;
+
+

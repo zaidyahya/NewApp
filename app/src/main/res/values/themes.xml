@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.TheApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <!--        For dark icons and text on ToolBar-->
+<!--        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>-->
+        <item name="styleChip">@style/Widget.TheApp.ChipStyle</item>
+        <item name="bottomSheetDialogTheme">@style/TheApp.BottomSheetDialog</item>
+
+<!--        Controls/affects textInputLayout font colouring-->
+<!--        <item name="colorOnSurface">@color/colorPrimaryDark</item>-->
+<!--        Controls/affects radioButton colouring-->
+        <item name="colorSecondary">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="TheApp.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+        <item name="dividerHorizontal">@color/dividerHorizontal</item>
+    </style>
+
+</resources>

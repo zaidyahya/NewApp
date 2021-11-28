@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <View
+        android:id="@+id/divider_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/dividerHorizontal" />
+
+
+    <ImageView
+        android:id="@+id/image_view_image"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/divider_horizontal_0"
+        tools:srcCompat="@drawable/orange_small" />
+
+    <View
+        android:id="@+id/margin_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/image_view_image"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/margin_horizontal_0"
+        android:text="Shalwar Kameez"
+        android:textAppearance="?attr/textAppearanceBody2" />
+
+    <View
+        android:id="@+id/margin_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_extra_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_name"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/margin_horizontal_1"
+        android:text="Rs. 650"
+        android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+    <View
+        android:id="@+id/margin_horizontal_2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_extra_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_price"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/toast_free_delivery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/margin_horizontal_2"
+        android:text="Free Delivery" />
+
+    <View
+        android:id="@+id/margin_horizontal_3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/toast_free_delivery"
+        android:background="@color/transparent_divider" />
+
+    <Button
+        android:id="@+id/button_share_now"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/margin_horizontal_3"
+        style="?attr/materialButtonOutlinedStyle"
+        android:text="Share Now"
+        app:iconGravity="textStart"
+        app:icon="@drawable/ic_baseline_share_24" />
+
+    <View
+        android:id="@+id/margin_horizontal_4"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/button_share_now"
+        android:background="@color/transparent_divider" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

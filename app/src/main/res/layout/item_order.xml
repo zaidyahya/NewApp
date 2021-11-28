@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <TextView
+        android:id="@+id/text_view_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        android:text="28-09-2021" />
+
+    <View
+        android:id="@+id/io_margin_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_date"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_order_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/io_margin_horizontal_1"
+        android:text="Order 234XYZSDW"
+        android:textAppearance="?attr/textAppearanceSubtitle2" />
+
+    <View
+        android:id="@+id/io_margin_horizontal_2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_order_number"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_ship_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/io_margin_horizontal_2"
+        android:text="Ship to" />
+
+    <TextView
+        android:id="@+id/text_view_ship_to_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/text_view_ship_to"
+        app:layout_constraintTop_toBottomOf="@id/io_margin_horizontal_2"
+        android:paddingStart="6dp"
+        android:text="Nunez"
+        android:textAppearance="?attr/textAppearanceBody2" />
+
+    <TextView
+        android:id="@+id/text_view_bullet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/text_view_ship_to_value"
+        app:layout_constraintTop_toBottomOf="@id/io_margin_horizontal_2"
+        app:layout_constraintEnd_toStartOf="@id/text_view_status"
+        android:paddingStart="@dimen/margin_small"
+        android:paddingEnd="@dimen/margin_small"
+        android:text="\u2022"/>
+
+    <TextView
+        android:id="@+id/text_view_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/text_view_bullet"
+        app:layout_constraintTop_toBottomOf="@id/io_margin_horizontal_2"
+        android:text="Status:" />
+
+    <TextView
+        android:id="@+id/text_view_status_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/text_view_status"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_status"
+        android:paddingStart="6dp"
+        tools:text="Delivered" />
+
+    <ImageButton
+        android:id="@+id/image_button_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="?attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+    <View
+        android:id="@+id/io_margin_horizontal_3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_ship_to"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/io_margin_horizontal_3"
+        android:text="Items: 3"
+        android:textAppearance="?attr/textAppearanceBody2" />
+
+    <View
+        android:id="@+id/io_margin_horizontal_4"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_items"
+        android:background="@color/transparent_divider" />
+
+    <View
+        android:id="@+id/io_divider_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/io_margin_horizontal_4"
+        android:background="?attr/dividerHorizontal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
