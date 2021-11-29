@@ -34,19 +34,18 @@ CREATE TABLE ProductVariantEntity(
     FOREIGN KEY (product_id) REFERENCES ProductEntity(id)
 );
 
--- CREATE TABLE ShoppingCartEntity(
---     id TEXT PRIMARY KEY NOT NULL,
---     product_charges TEXT,
---     margin TEXT,
---     cash_to_collect TEXT,
---     delivery_charges TEXT,
---     customerId TEXT
--- );
+CREATE TABLE ShoppingCartEntity(
+    id TEXT PRIMARY KEY NOT NULL,
+    margin INTEGER AS Int,
+    cash_to_collect Integer AS Int
+);
 
 CREATE TABLE ShoppingCartItemEntity(
     id TEXT PRIMARY KEY NOT NULL,
+    shopping_cart_id TEXT NOT NULL,
     product_variant_id TEXT NOT NULL,
     quantity INTEGER AS Int NOT NULL,
+    FOREIGN KEY (shopping_cart_id) REFERENCES ShoppingCartEntity(id),
     FOREIGN KEY (product_variant_id) REFERENCES ProductVariantEntity(id)
 );
 
@@ -127,6 +126,27 @@ VALUES (?, ?, ?, ?);
 --     product_charges = ?
 -- WHERE id = ?;
 
+selectShoppingCart:
+SELECT sc.id, sc.margin, sc.cash_to_collect,
+scit.id AS shopping_cart_item_id, scit.product_variant_id, scit.quantity,
+prdvar.abbreviation AS size_abbreviation,
+prd.id AS product_id, prd.name AS product_name, prd.price AS product_price
+FROM ShoppingCartEntity sc
+INNER JOIN ShoppingCartItemEntity scit ON scit.shopping_cart_id = sc.id
+INNER JOIN ProductVariantEntity prdvar ON prdvar.id = scit.product_variant_id
+INNER JOIN ProductEntity prd ON prd.id = prdvar.product_id;
+
+insertShoppingCart:
+INSERT INTO ShoppingCartEntity
+(id, margin, cash_to_collect)
+VALUES (?, ? ,?);
+
+updateShoppingCart:
+UPDATE ShoppingCartEntity
+SET
+    margin = ?,
+    cash_to_collect = ?
+WHERE id = ?;
 
 -------------------- Shopping Cart Item
 selectAllShoppingCartItems:
@@ -143,8 +163,8 @@ INNER JOIN ProductEntity prd ON prd.id = prdvar.product_id;
 
 insertShoppingCartItem:
 INSERT INTO ShoppingCartItemEntity
-(id, product_variant_id, quantity)
-VALUES (?, ?, ?);
+(id, shopping_cart_id, product_variant_id, quantity)
+VALUES (?, ?, ?, ?);
 
 updateShoppingCartItem:
 UPDATE ShoppingCartItemEntity

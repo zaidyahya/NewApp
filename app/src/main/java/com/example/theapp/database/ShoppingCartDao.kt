@@ -2,6 +2,7 @@ package com.example.theapp.database
 
 import com.example.theapp.PhoneDatabase
 import com.example.theapp.SelectAllShoppingCartItemsWithDetails
+import com.example.theapp.SelectShoppingCart
 import com.example.theapp.ShoppingCartItemEntity
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
@@ -11,13 +12,6 @@ import javax.inject.Inject
 class ShoppingCartDao @Inject constructor(
     private val database: PhoneDatabase
 ) {
-
-    //suspend fun updateShoppingCart(cart: ShoppingCartEntity) {
-    //    database.phoneDatabaseQueries.updateShoppingCart(
-    //        id = cart.id,
-    //        product_charges = cart.product_charges
-    //    )
-    //}
 
 //    fun getShoppingCart() : Flow<ShoppingCart> { // Include orderTotal. Remove other fields (?)
 //        Log.d("GETCART","SCDao")
@@ -46,26 +40,66 @@ class ShoppingCartDao @Inject constructor(
 //        return shoppingCart
 //    }
 
+    fun getShoppingCart(): Flow<List<SelectShoppingCart>> {
+        return database.phoneDatabaseQueries.selectShoppingCart().asFlow().mapToList()
+    }
+
+    suspend fun updateShoppingCart(margin: Int?, cashToCollect: Int?) {
+        database.phoneDatabaseQueries.updateShoppingCart(
+            id = "S1",
+            margin = margin,
+            cash_to_collect = cashToCollect
+        )
+    }
+
     fun getAllShoppingCartItemsWithDetails(): Flow<List<SelectAllShoppingCartItemsWithDetails>> {
         return database.phoneDatabaseQueries.selectAllShoppingCartItemsWithDetails().asFlow().mapToList()
     }
 
+    /**
+     * Making the ShoppingCart values null for OrderSummary page so that nullability can be the trigger to show the 'enter new cash collect' dialog
+     * Besides, any change in the cart should make the old values redundant, and thus new ones should be required.
+     */
     suspend fun insertShoppingCartItem(cartItem: ShoppingCartItemEntity) {
-        database.phoneDatabaseQueries.insertShoppingCartItem(
-            id = cartItem.id,
-            product_variant_id = cartItem.product_variant_id,
-            quantity = cartItem.quantity
-        )
+        database.phoneDatabaseQueries.transaction {
+            database.phoneDatabaseQueries.insertShoppingCartItem(
+                id = cartItem.id,
+                shopping_cart_id = cartItem.shopping_cart_id,
+                product_variant_id = cartItem.product_variant_id,
+                quantity = cartItem.quantity
+            )
+            database.phoneDatabaseQueries.updateShoppingCart(
+                id = "S1",
+                margin = null,
+                cash_to_collect = null
+            )
+        }
     }
 
     suspend fun updateShoppingCartItem(cartItem: ShoppingCartItemEntity) {
-        database.phoneDatabaseQueries.updateShoppingCartItem(
-            id = cartItem.id,
-            product_variant_id = cartItem.product_variant_id,
-            quantity = cartItem.quantity
-        )
+        database.phoneDatabaseQueries.transaction {
+            database.phoneDatabaseQueries.updateShoppingCartItem(
+                id = cartItem.id,
+                product_variant_id = cartItem.product_variant_id,
+                quantity = cartItem.quantity
+            )
+            database.phoneDatabaseQueries.updateShoppingCart(
+                id = "S1",
+                margin = null,
+                cash_to_collect = null
+            )
+        }
     }
 
-    suspend fun deleteShoppingCartItem(id: String) = database.phoneDatabaseQueries.deleteShoppingCartItem(id)
+    suspend fun deleteShoppingCartItem(id: String)  {
+        database.phoneDatabaseQueries.transaction {
+            database.phoneDatabaseQueries.deleteShoppingCartItem(id)
+            database.phoneDatabaseQueries.updateShoppingCart(
+                id = "S1",
+                margin = null,
+                cash_to_collect = null
+            )
+        }
+    }
 
 }

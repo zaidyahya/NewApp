@@ -1,6 +1,5 @@
 package com.example.theapp.ui.checkout.shoppingcart.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.theapp.model.*
 import com.example.theapp.repository.IOrderRepository
@@ -17,23 +16,10 @@ class ShoppingCartViewModel @Inject constructor(
 
 
     var order: LiveData<Order> = orderRepository.getOrder()
-    val shoppingCart: LiveData<ShoppingCart> = shoppingCartRepository.getShoppingCart().asLiveData()
+    val shoppingCart: MutableLiveData<ShoppingCart> = shoppingCartRepository.getShoppingCart().asLiveData() as MutableLiveData<ShoppingCart>
 
     lateinit var selectedCartItem: ShoppingCartItemWithDetails
     val selectedCartItemProductVariants = MutableLiveData<List<ProductVariant>>()
-
-    fun addOrderItem(product: Product, size: String) {
-        order = orderRepository.addOrderItem(product, size)
-    }
-
-    fun removeOrderItem(id: String) {
-        //Log.d("ViewModel", "Remove")
-        order = orderRepository.deleteOrderItem(id)
-    }
-
-    fun updateOrderItem(id: String, size: String) {
-        order = orderRepository.updateOrderItem(id, size)
-    }
 
     fun addCustomerToOrderItem(customer: Customer) {
         order = orderRepository.addCustomer(customer)
@@ -91,11 +77,18 @@ class ShoppingCartViewModel @Inject constructor(
     }
 
     fun onContinueButtonClick(margin: Int, cashToCollect: Int) {
-        shoppingCart.value?.let {
-            it.margin = margin
-            it.cashToCollect = cashToCollect
+        viewModelScope.launch {
+            shoppingCartRepository.updateShoppingCart(margin, cashToCollect)
         }
-        Log.d("SIUUU", "${shoppingCart.value}")
+    }
+
+    fun onUpdateButtonClick(cashToCollect: Int) {
+        shoppingCart.value?.let {
+            val margin = cashToCollect - it.orderTotal!!
+            viewModelScope.launch {
+                shoppingCartRepository.updateShoppingCart(margin, cashToCollect)
+            }
+        }
     }
 
 

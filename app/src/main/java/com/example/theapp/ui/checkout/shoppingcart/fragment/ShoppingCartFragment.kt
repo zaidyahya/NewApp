@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * TODO :- BottomDialog. MarginEarn textcolor change + boldening of cash collection properly. Amount changes to reflect alterations. Save/Edit cashCollect field.
+ * Empty cart items, same item added again, edit item without any actual edits. Checks such as :- negative margin, empty cash collect
  */
 @AndroidEntryPoint
 class ShoppingCartFragment : Fragment(R.layout.fragment_shopping_cart), ShoppingCartItemNewAdapter.OnItemClickListener,
@@ -85,7 +86,7 @@ ModifyProductBottomDialog.OnItemClickListener {
         //}
 
         viewModel.shoppingCart.observe(viewLifecycleOwner) {
-            Log.d("SCart", "${it.items}")
+            Log.d("SCart", "$it")
             shoppingCartAdapterNew.submitList(it.items)
 
             binding.textViewProductChargesValue.text = "Rs. ${it.productCharges}"

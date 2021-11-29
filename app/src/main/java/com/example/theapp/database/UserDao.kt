@@ -178,19 +178,17 @@ class UserDao @Inject constructor(
     }
 
     private fun insertShoppingCart() {
-        //database.phoneDatabaseQueries.insertShoppingCart(
-        //    id = "S1",
-        //    product_charges = null,
-        //    margin = null,
-        //    cash_to_collect = null,
-        //    delivery_charges = null,
-        //    customerId = null
-        //)
+        database.phoneDatabaseQueries.insertShoppingCart(
+            id = "S1",
+            margin = null,
+            cash_to_collect = null,
+        )
     }
 
     private fun insertShoppingCartItems() {
         database.phoneDatabaseQueries.insertShoppingCartItem(
             id = "1SIT",
+            shopping_cart_id = "S1",
             product_variant_id = "PV4",
             quantity = 2
         )
