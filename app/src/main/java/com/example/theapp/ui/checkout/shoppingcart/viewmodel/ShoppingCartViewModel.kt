@@ -16,7 +16,7 @@ class ShoppingCartViewModel @Inject constructor(
 
 
     var order: LiveData<Order> = orderRepository.getOrder()
-    val shoppingCart: MutableLiveData<ShoppingCart> = shoppingCartRepository.getShoppingCart().asLiveData() as MutableLiveData<ShoppingCart>
+    val shoppingCart: LiveData<ShoppingCart> = shoppingCartRepository.getShoppingCart().asLiveData()
 
     lateinit var selectedCartItem: ShoppingCartItemWithDetails
     val selectedCartItemProductVariants = MutableLiveData<List<ProductVariant>>()

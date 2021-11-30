@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+
+    <ImageView
+        android:id="@+id/image_view_product"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintEnd_toStartOf="@id/text_view_name"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        android:layout_marginTop="@dimen/margin_extra_small" />
+
+    <TextView
+        android:id="@+id/text_view_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Pretty Ravishing Women Tshirts"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        android:paddingStart="@dimen/margin_medium"
+        android:textAppearance="?attr/textAppearanceSubtitle2"/>
+
+    <View
+        android:id="@+id/margin_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        app:layout_constraintTop_toBottomOf="@id/text_view_name"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Size: S | Qty: 5"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        app:layout_constraintTop_toBottomOf="@id/margin_horizontal_0"
+        android:paddingStart="@dimen/margin_medium"
+        android:textAppearance="?attr/textAppearanceOverline" />
+
+    <View
+        android:id="@+id/margin_horizontal_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        app:layout_constraintTop_toBottomOf="@id/text_view_size"
+        android:background="@color/transparent_divider" />
+
+    <TextView
+        android:id="@+id/text_view_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rs. 500"
+        app:layout_constraintStart_toEndOf="@id/image_view_product"
+        app:layout_constraintTop_toBottomOf="@id/margin_horizontal_1"
+        android:paddingStart="@dimen/margin_medium"
+        android:textAppearance="?attr/textAppearanceOverline" />
+
+    <View
+        android:id="@+id/margin_horizontal_2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/text_view_price"
+        android:background="@color/transparent_divider" />
+
+    <View
+        android:id="@+id/divider_horizontal_0"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/margin_horizontal_2"
+        android:background="?attr/dividerHorizontal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

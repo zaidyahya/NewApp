@@ -26,7 +26,7 @@ import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewMod
 class OrderSummaryFragment : Fragment(R.layout.fragment_order_summary), ShoppingCartItemNewAdapter.OnItemClickListener,
 ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemClickListener {
 
-    private val viewModel: ShoppingCartViewModel by activityViewModels()
+    private val viewModel: ShoppingCartViewModel by activityViewModels() // Because it's activityViewModels, @AndroidEntryPoint injection not needed i.e. it doesn't crash, not theoretically
 
     private var _binding: FragmentOrderSummaryBinding? = null
     private val binding get() = _binding!!

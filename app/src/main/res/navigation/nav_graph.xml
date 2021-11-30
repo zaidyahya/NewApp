@@ -120,7 +120,11 @@
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.theapp.ui.myorders.fragment.OrderDetailsFragment"
         android:label="fragment_order_details"
-        tools:layout="@layout/fragment_order_details" />
+        tools:layout="@layout/fragment_order_details" >
+        <argument
+            android:name="orderId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/orderPlacedFragment"
         android:name="com.example.theapp.ui.checkout.orderplaced.fragment.OrderPlacedFragment"

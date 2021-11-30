@@ -102,7 +102,7 @@
                 app:layout_constraintTop_toBottomOf="@id/mo_divider_horizontal_0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:listitem="@layout/item_order"
+                tools:listitem="@layout/item_order_summarized"
                 tools:itemCount="3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

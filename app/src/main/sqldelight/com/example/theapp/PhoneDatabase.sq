@@ -60,6 +60,28 @@ CREATE TABLE CustomerEntity(
     zip_code TEXT
 );
 
+CREATE TABLE OrderEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    margin INTEGER AS Int NOT NULL,
+    cash_to_collect Integer AS Int NOT NULL,
+    product_charges Integer AS Int NOT NULL,
+    delivery_charges Integer AS Int NOT NULL,
+    order_total Integer AS Int NOT NULL,
+    customer_id TEXT NOT NULL,
+    status TEXT NOT NULL,
+    date_placed TEXT NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES CustomerEntity(id)
+);
+
+CREATE TABLE OrderItemEntity(
+    id TEXT PRIMARY KEY NOT NULL,
+    order_id TEXT NOT NULL,
+    product_variant_id TEXT NOT NULL,
+    quantity INTEGER AS Int NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES OrderEntity(id),
+    FOREIGN KEY (product_variant_id) REFERENCES ProductVariantEntity(id)
+);
+
 -------------------- Category
 
 insertCategory:
@@ -214,6 +236,40 @@ UPDATE CustomerEntity
 SET
     is_selected = ?
 WHERE id = ?;
+
+-------------------- Order
+selectAllOrders:
+SELECT o.id, o.status, o.date_placed,
+oi.product_variant_id,
+c.name AS customer_name
+FROM OrderEntity o
+INNER JOIN OrderItemEntity oi ON oi.order_id = o.id
+INNER JOIN CustomerEntity c ON c.id = o.customer_id;
+
+insertOrder:
+INSERT INTO OrderEntity
+(id, margin, cash_to_collect, product_charges, delivery_charges, order_total, customer_id, status, date_placed)
+VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?);
+
+
+selectFullOrderById:
+SELECT o.id, o.margin, o.cash_to_collect, o.product_charges, o.delivery_charges, o.order_total, o.status, o.date_placed,
+oi.id AS order_item_id, oi.product_variant_id, oi.quantity,
+prdvar.abbreviation AS size_abbreviation,
+prd.id AS product_id, prd.name AS product_name, prd.price AS product_price,
+c.id AS customer_id, c.name AS customer_name, c.address_line_1, c.address_line_2, c.city, c.phone_number, c.zip_code
+FROM OrderEntity o
+INNER JOIN OrderItemEntity oi ON oi.order_id = o.id
+INNER JOIN ProductVariantEntity prdvar ON prdvar.id = oi.product_variant_id
+INNER JOIN ProductEntity prd ON prd.id = prdvar.product_id
+INNER JOIN CustomerEntity c ON c.id = o.customer_id
+WHERE o.id = ?;
+
+-------------------- OrderItem
+insertOrderItem:
+INSERT INTO OrderItemEntity
+(id, order_id, product_variant_id, quantity)
+VALUES (?, ?, ?, ?);
 
 
 -------------------- User

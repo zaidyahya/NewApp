@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentPickAddressBinding
@@ -22,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressItemAdapterNew.OnItemClickListener {
 
     private val cartViewModel: ShoppingCartViewModel by activityViewModels()
-    private val viewModel: PickAddressViewModel by activityViewModels()
+    private val viewModel: PickAddressViewModel by viewModels()
 
     private var _binding: FragmentPickAddressBinding? = null
     private val binding get() = _binding!!

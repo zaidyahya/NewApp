@@ -148,18 +148,54 @@
             <TextView
                 android:id="@+id/text_view_order_tracking"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/guideline_left"
                 app:layout_constraintTop_toBottomOf="@id/od_margin_horizontal_4"
                 android:text="Order Tracking"
                 android:textAppearance="?attr/textAppearanceBody1" />
 
             <View
+                android:id="@+id/od_margin_horizontal_99"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_medium"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toEndOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/text_view_order_tracking"
+                android:background="@color/transparent_divider" />
+
+
+            <TextView
+                android:id="@+id/text_view_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/od_margin_horizontal_99"
+                android:text="Status:" />
+
+            <TextView
+                android:id="@+id/text_view_status_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/text_view_status"
+                app:layout_constraintBaseline_toBaselineOf="@id/text_view_status"
+                android:paddingStart="6dp"
+                tools:text="Delivered" />
+
+            <View
+                android:id="@+id/od_margin_horizontal_100"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_medium"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toEndOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/text_view_status"
+                android:background="@color/transparent_divider" />
+
+            <View
                 android:id="@+id/od_divider_horizontal_2"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_small"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_order_tracking"
+                app:layout_constraintTop_toBottomOf="@id/od_margin_horizontal_100"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:background="?attr/dividerHorizontal" />
 
@@ -227,7 +263,7 @@
             <View
                 android:id="@+id/od_margin_horizontal_8"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/margin_medium"
+                android:layout_height="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
                 app:layout_constraintTop_toBottomOf="@id/text_view_product_charges"
@@ -252,7 +288,7 @@
             <View
                 android:id="@+id/od_margin_horizontal_9"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/margin_medium"
+                android:layout_height="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
                 app:layout_constraintTop_toBottomOf="@id/text_view_delivery_charges"
@@ -270,7 +306,7 @@
             <View
                 android:id="@+id/od_margin_horizontal_10"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/margin_medium"
+                android:layout_height="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
                 app:layout_constraintTop_toBottomOf="@id/od_divider_horizontal_3"
@@ -296,7 +332,7 @@
             <View
                 android:id="@+id/od_margin_horizontal_11"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/margin_medium"
+                android:layout_height="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
                 app:layout_constraintTop_toBottomOf="@id/text_view_order_total"
@@ -321,7 +357,7 @@
             <View
                 android:id="@+id/od_margin_horizontal_12"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/margin_medium"
+                android:layout_height="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
                 app:layout_constraintTop_toBottomOf="@id/text_view_margin"
