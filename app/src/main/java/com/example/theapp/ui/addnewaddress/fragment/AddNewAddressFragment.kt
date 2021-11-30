@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentAddNewAddressBinding
-import com.example.theapp.model.Customer
+import com.example.theapp.model.CustomerNew
 import com.example.theapp.ui.checkout.pickaddress.viewmodel.PickAddressViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,8 +24,7 @@ class AddNewAddressFragment : Fragment(R.layout.fragment_add_new_address) {
     private var _binding: FragmentAddNewAddressBinding? = null
     private val binding get() = _binding!!
 
-    private val args by navArgs<AddNewAddressFragmentArgs>()
-    //private lateinit var customer: Customer // Nullability to be property catered to since this will either be null or populated
+    private val args by navArgs<AddNewAddressFragmentArgs>() // Nullability to be property catered to since this will either be null or populated
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +35,26 @@ class AddNewAddressFragment : Fragment(R.layout.fragment_add_new_address) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAddNewAddressBinding.bind(view)
 
-        val customer: Customer? = args.customer
+        val customer: CustomerNew? = args.customer
 
         binding.apply {
-            buttonSaveAndContinue.setOnClickListener { onContinueButtonClick() }
+            buttonSaveAndContinue.setOnClickListener {
+                val name = textInputLayoutNameValue.text.toString()
+                val phoneNumber = textInputLayoutPhoneNumberValue.text.toString()
+                val addressLine1 = textInputLayoutAddressLine1Value.text.toString()
+                val addressLine2 = textInputLayoutAddressLine2Value.text.toString()
+                val city = textInputLayoutCityValue.text.toString()
+                onContinueButtonClick(name, phoneNumber, addressLine1, addressLine2, city)
+            }
 
             customer?.let {
-                binding.textInputLayoutName.editText?.setText(it.name)
-                binding.textInputLayoutArea.editText?.setText(it.address?.area)
+                textInputLayoutNameValue.setText(it.name)
+                textInputLayoutPhoneNumberValue.setText(it.phoneNumber)
+                textInputLayoutAddressLine1Value.setText(it.addressLine1)
+                textInputLayoutAddressLine2Value.setText(it.addressLine2)
+                textInputLayoutCityValue.setText(it.city)
+                //textInputLayoutName.editText?.setText(it.name)
+                //textInputLayoutArea.editText?.setText(it.address?.area)
             }
         }
     }
@@ -59,9 +70,16 @@ class AddNewAddressFragment : Fragment(R.layout.fragment_add_new_address) {
         _binding = null
     }
 
-    private fun onContinueButtonClick() {
-        Log.d("AddNewAddress", "ContinueButton")
-        viewModel.addNewCustomer()
+    private fun onContinueButtonClick(name: String, phoneNumber: String,
+                                      addressLine1: String, addressLine2: String, city: String
+    ) {
+        args.customer.let {
+            if (it != null) { // If not null meaning Edit is in process
+                viewModel.updateCustomer(it.id, name, phoneNumber, addressLine1, addressLine2, city, null)
+            } else {
+                viewModel.insertCustomer(name, phoneNumber, addressLine1, addressLine2, city, null)
+            }
+        }
         val action = AddNewAddressFragmentDirections.actionAddNewAddressFragmentToPickAddressFragment()
         findNavController().navigate(action)
     }

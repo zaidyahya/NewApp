@@ -20,6 +20,7 @@ class UserDao @Inject constructor(
         insertProductVariants()
         insertShoppingCart()
         insertShoppingCartItems()
+        insertCustomerItems()
     }
 
     suspend fun insertUser(user: UserEntity) {
@@ -191,6 +192,28 @@ class UserDao @Inject constructor(
             shopping_cart_id = "S1",
             product_variant_id = "PV4",
             quantity = 2
+        )
+    }
+
+    private fun insertCustomerItems() {
+        database.phoneDatabaseQueries.insertCustomer(
+            id = "1",
+            name = "Ralf Rangnick",
+            phone_number = "92321820093",
+            address_line_1 = "Apt 34-A, 13th Street",
+            address_line_2 = "Trafford Rd, Trafford",
+            city = "Manchester",
+            zip_code = "75500"
+        )
+
+        database.phoneDatabaseQueries.insertCustomer(
+            id = "2",
+            name = "Thomas Tuchel",
+            phone_number = "92321833893",
+            address_line_1 = "64B/2, 29th Street",
+            address_line_2 = "Stamford Bridge",
+            city = "London",
+            zip_code = "M4P1Z2"
         )
     }
 

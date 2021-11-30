@@ -8,8 +8,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentOrderSummaryBinding
+import com.example.theapp.model.CustomerNew
 import com.example.theapp.model.OrderItem
 import com.example.theapp.model.ProductVariant
 import com.example.theapp.model.ShoppingCartItemWithDetails
@@ -32,6 +34,8 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
     private lateinit var shoppingCartAdapter: ShoppingCartItemAdapter
     private lateinit var shoppingCartAdapterNew: ShoppingCartItemNewAdapter
 
+    private val args by navArgs<OrderSummaryFragmentArgs>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true) // To remove the cart icon when on this fragment
@@ -40,6 +44,8 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentOrderSummaryBinding.bind(view)
+
+        val customer: CustomerNew = args.customer
 
         //shoppingCartAdapter = ShoppingCartItemAdapter(this)
         shoppingCartAdapterNew = ShoppingCartItemNewAdapter(this)
@@ -52,7 +58,9 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
                 adapter = shoppingCartAdapterNew
             }
 
-            textViewCustomerName.text = viewModel.order.value?.customer?.name
+            textViewCustomerName.text = customer.name
+            textViewCustomerPhoneNumber.text = customer.phoneNumber
+            textViewCustomerAddress.text = "${customer.addressLine1}, ${customer.addressLine2}, ${customer.city}, Pakistan"
             //binding.imageButtonEditAddress.setOnClickListener {
             //    activity?.let { ModifyAddressBottomDialog().show(it.supportFragmentManager, "ModifyAddressDialog") }
             //}
@@ -99,10 +107,12 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
         viewModel.onEditButtonClick(cartItem)
     }
 
+    // When remove button from ModifyProduct dialog is clicked
     override fun onRemoveButtonClick(id: String) {
         viewModel.deleteShoppingCartItem(id)
     }
 
+    // When continue button from ModifyProduct dialog is clicked
     override fun onContinueButtonClick(size: String, quantity: Int) {
         /**
          * If button is clicked without any changes to values. Also don't need to show modifyCashColl values.
@@ -115,7 +125,6 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
         }
     }
 
-    // When continue button from ModifyProduct dialog is clicked
     private fun onPlaceOrderButtonClick() {
         //val action = OrderSummaryFragmentDirections.actionOrderSummaryFragmentToOrderPlacedFragment()
         //findNavController().navigate(action)
@@ -132,6 +141,7 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
         activity?.let { modifyCashToCollectDialog.show(it.supportFragmentManager, "ModifyCashToCollectDialog")}
     }
 
+    // When update button from ModifyCashCollect dialog is clicked
     override fun onUpdateButtonClick(value: Int) {
         viewModel.onUpdateButtonClick(value)
     }

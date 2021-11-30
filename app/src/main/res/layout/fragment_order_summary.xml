@@ -114,10 +114,11 @@
 
             <TextView
                 android:id="@+id/text_view_customer_address"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/os_margin_horizontal_2"
                 app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@id/image_button_edit_address"
                 android:text="AA Bakery, 34-1, Haryana Lines, Stockholm - 755001"
                 android:textAppearance="?attr/textAppearanceCaption" />
 
@@ -125,9 +126,9 @@
                 android:id="@+id/image_button_edit_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/os_margin_horizontal_2"
+                app:layout_constraintTop_toBottomOf="@id/os_margin_horizontal_1"
                 app:layout_constraintEnd_toStartOf="@id/guideline_right"
-                app:layout_constraintBottom_toBottomOf="@id/text_view_customer_address"
+                app:layout_constraintBottom_toTopOf="@id/os_margin_horizontal_3"
                 android:background="?attr/selectableItemBackground"
                 app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
 

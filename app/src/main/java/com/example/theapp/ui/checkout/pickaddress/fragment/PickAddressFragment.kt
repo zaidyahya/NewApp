@@ -11,13 +11,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentPickAddressBinding
 import com.example.theapp.model.Customer
+import com.example.theapp.model.CustomerNew
 import com.example.theapp.ui.checkout.pickaddress.adapter.AddressItemAdapter
+import com.example.theapp.ui.checkout.pickaddress.adapter.AddressItemAdapterNew
 import com.example.theapp.ui.checkout.pickaddress.viewmodel.PickAddressViewModel
 import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressItemAdapter.OnItemClickListener {
+class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressItemAdapterNew.OnItemClickListener {
 
     private val cartViewModel: ShoppingCartViewModel by activityViewModels()
     private val viewModel: PickAddressViewModel by activityViewModels()
@@ -25,7 +27,9 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
     private var _binding: FragmentPickAddressBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var addressItemAdapter: AddressItemAdapter
+    //private lateinit var addressItemAdapter: AddressItemAdapter
+    private lateinit var addressItemAdapterNew: AddressItemAdapterNew
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +42,15 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
         //val addressItems = viewModel.customers.value
         //addressItemAdapter = AddressItemAdapter(addressItems!!, this)
 
-        addressItemAdapter = AddressItemAdapter(this)
+        //addressItemAdapter = AddressItemAdapter(this)
+        addressItemAdapterNew = AddressItemAdapterNew(this)
 
         _binding = FragmentPickAddressBinding.bind(view)
 
         binding.apply {
             recyclerViewPickAddress.apply {
                 setHasFixedSize(true)
-                adapter = addressItemAdapter
+                adapter = addressItemAdapterNew
             }
 
             buttonAddNew.setOnClickListener {
@@ -54,8 +59,9 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
             }
         }
 
-        viewModel.customers.observe(viewLifecycleOwner) {
-            addressItemAdapter.submitList(it)
+        viewModel.customersNew.observe(viewLifecycleOwner) {
+            Log.d("CustomerObservers", "$it")
+            addressItemAdapterNew.submitList(it)
         }
 
     }
@@ -71,23 +77,17 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
         _binding = null
     }
 
-    override fun onItemClick(position: Int) {
-        //for(i in 0 until addressItems.size) {
-        //    addressItems[i] = Customer(addressItems[i].name, i == position, null)
-        //}
-        //addressItemAdapter.notifyDataSetChanged()
-        viewModel.onCustomerSelected(position)
+    override fun onItemClick(id: String, position: Int) {
+        viewModel.onItemClick(id, position)
     }
 
-    override fun onDeliverButtonClick(customer: Customer) {
-        Log.d("PickAddressFragment", "$customer")
-        cartViewModel.addCustomerToOrderItem(customer)
-        val action = PickAddressFragmentDirections.actionPickAddressFragmentToOrderSummaryFragment()
+    override fun onEditButtonClick(customer: CustomerNew) {
+        val action = PickAddressFragmentDirections.actionPickAddressFragmentToAddNewAddressFragment(customer)
         findNavController().navigate(action)
     }
 
-    override fun onEditButtonClick(customer: Customer) {
-        val action = PickAddressFragmentDirections.actionPickAddressFragmentToAddNewAddressFragment(customer)
+    override fun onDeliverButtonClick(customer: CustomerNew) {
+        val action = PickAddressFragmentDirections.actionPickAddressFragmentToOrderSummaryFragment(customer)
         findNavController().navigate(action)
     }
 }

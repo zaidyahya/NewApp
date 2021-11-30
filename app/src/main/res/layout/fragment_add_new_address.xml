@@ -68,6 +68,7 @@
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_input_layout_name_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Name *"
@@ -88,6 +89,7 @@
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_input_layout_phone_number_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Phone Number *"
@@ -141,13 +143,14 @@
                     android:background="@color/transparent_divider" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_house_number"
+                    android:id="@+id/text_input_layout_address_line_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_input_layout_address_line_1_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="House No. / Building Name *"
@@ -161,13 +164,14 @@
                     android:background="@color/transparent_divider" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_area"
+                    android:id="@+id/text_input_layout_address_line_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_input_layout_address_line_2_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Road Name / Area / Colony *"
@@ -196,6 +200,7 @@
                         app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/text_input_layout_city_value"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="City *"
@@ -213,6 +218,7 @@
                         app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/text_input_layout_zip_code_value"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Zip Code"
@@ -235,6 +241,7 @@
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_input_layout_landmark_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Landmark"

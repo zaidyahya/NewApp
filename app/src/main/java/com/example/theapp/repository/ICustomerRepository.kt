@@ -2,12 +2,22 @@ package com.example.theapp.repository
 
 import androidx.lifecycle.LiveData
 import com.example.theapp.model.Customer
+import com.example.theapp.model.CustomerNew
+import kotlinx.coroutines.flow.Flow
 
 interface ICustomerRepository {
 
-    fun getCustomers(): LiveData<List<Customer>>
+    fun getCustomersNew(): Flow<List<CustomerNew>>
 
-    fun insertCustomer(): LiveData<List<Customer>>
+    suspend fun insertCustomer(
+        name: String,
+        phoneNumber: String,
+        addressLine1: String,
+        addressLine2: String,
+        city: String,
+        zipCode: String?
+    )
 
-    fun updateCustomerSelection(position: Int): LiveData<List<Customer>>
+    suspend fun updateCustomer(customer: CustomerNew)
+    suspend fun updateCustomerSelected(id: String, selected: Boolean)
 }

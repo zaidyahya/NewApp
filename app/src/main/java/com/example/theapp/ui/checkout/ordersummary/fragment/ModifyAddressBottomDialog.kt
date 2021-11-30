@@ -47,13 +47,13 @@ class ModifyAddressBottomDialog : BottomSheetDialogFragment(), AddressItemAdapte
             }
         }
 
-        viewModel.customers.observe(viewLifecycleOwner) {
-            addressItemAdapter.submitList(it)
-        }
+        //viewModel.customers.observe(viewLifecycleOwner) {
+        //    addressItemAdapter.submitList(it)
+        //}
     }
 
     override fun onItemClick(position: Int) {
-        viewModel.onCustomerSelected(position)
+        //viewModel.onCustomerSelected(position)
     }
 
     override fun onEditButtonClick(customer: Customer) {
