@@ -1,5 +1,6 @@
 package com.example.theapp.ui.myorders.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.theapp.model.OrderNew
 import com.example.theapp.model.OrderSummary
@@ -13,10 +14,19 @@ class OrderViewModel @Inject constructor(
     private val orderNewRepository: OrderNewRepository
 ) : ViewModel() {
 
-    val orders: LiveData<List<OrderSummary>> = orderNewRepository.getOrders().asLiveData()
+    //var orders: LiveData<List<OrderSummary>> = orderNewRepository.getOrders().asLiveData() // Don't need Flow because it's not changing data + how to edit it?
+    val orders = MutableLiveData<List<OrderSummary>>()
 
-    // Flow not required. Do with manual ID passing from OrderDetailsFragment & lateinit variable. Similar t
     val order = MutableLiveData<OrderNew>()
+
+    val completedOrders = MutableLiveData<List<OrderSummary>>()
+
+    init {
+        viewModelScope.launch {
+            val response = orderNewRepository.getOrders()
+            orders.postValue(response)
+        }
+    }
 
     fun getOrderById(id: String) {
         viewModelScope.launch {
@@ -24,4 +34,27 @@ class OrderViewModel @Inject constructor(
             order.postValue(response)
         }
     }
+
+    private fun getOrdersByStatus(status: String) {
+        viewModelScope.launch {
+            val response = if(status == "All") {
+                orderNewRepository.getOrders()
+            } else {
+                orderNewRepository.getOrdersByStatus(status)
+            }
+            orders.postValue(response)
+        }
+    }
+
+    fun onChipSelected(status: String) {
+        getOrdersByStatus(status)
+    }
+
+    fun getCompletedOrders() {
+        viewModelScope.launch {
+            val response = orderNewRepository.getOrdersByStatus("Completed")
+            completedOrders.postValue(response)
+        }
+    }
+
 }

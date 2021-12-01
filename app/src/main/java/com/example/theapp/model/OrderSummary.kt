@@ -5,5 +5,6 @@ data class OrderSummary(
     val datePlaced: String,
     val status: String,
     val numItems: Int,
-    val customerName: String
+    val customerName: String,
+    val margin: Int
 )

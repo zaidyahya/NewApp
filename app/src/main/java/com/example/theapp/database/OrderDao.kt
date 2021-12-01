@@ -3,6 +3,7 @@ package com.example.theapp.database
 import com.example.theapp.PhoneDatabase
 import com.example.theapp.SelectAllOrders
 import com.example.theapp.SelectFullOrderById
+import com.example.theapp.SelectOrdersByStatus
 import com.example.theapp.model.OrderSummary
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
@@ -13,11 +14,19 @@ class OrderDao @Inject constructor(
     private val database: PhoneDatabase
 ) {
 
-    fun getOrders(): Flow<List<SelectAllOrders>> {
-        return database.phoneDatabaseQueries.selectAllOrders().asFlow().mapToList()
+//    fun getOrders(): Flow<List<SelectAllOrders>> {
+//        return database.phoneDatabaseQueries.selectAllOrders().asFlow().mapToList()
+//    }
+
+    suspend fun getOrders(): List<SelectAllOrders> {
+        return database.phoneDatabaseQueries.selectAllOrders().executeAsList()
     }
 
     suspend fun getOrderById(id: String): List<SelectFullOrderById> {
         return database.phoneDatabaseQueries.selectFullOrderById(id).executeAsList()
+    }
+
+    suspend fun getOrdersByStatus(status: String): List<SelectOrdersByStatus> {
+        return database.phoneDatabaseQueries.selectOrdersByStatus(status).executeAsList()
     }
 }

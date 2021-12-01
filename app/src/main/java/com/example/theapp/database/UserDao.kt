@@ -255,6 +255,42 @@ class UserDao @Inject constructor(
             status = "Completed",
             date_placed = "01-01-2022"
         )
+
+        database.phoneDatabaseQueries.insertOrder(
+            id = "O4",
+            margin = 150,
+            cash_to_collect = 550,
+            product_charges = 400,
+            delivery_charges = 0,
+            order_total = 400,
+            customer_id = "1",
+            status = "Completed",
+            date_placed = "10-01-2022"
+        )
+
+        database.phoneDatabaseQueries.insertOrder(
+            id = "O5",
+            margin = 600,
+            cash_to_collect = 2000,
+            product_charges = 1200,
+            delivery_charges = 0,
+            order_total = 1200,
+            customer_id = "2",
+            status = "Completed",
+            date_placed = "15-04-2022"
+        )
+
+        database.phoneDatabaseQueries.insertOrder(
+            id = "O6",
+            margin = 1500,
+            cash_to_collect = 3000,
+            product_charges = 1500,
+            delivery_charges = 0,
+            order_total = 1500,
+            customer_id = "2",
+            status = "Cancelled",
+            date_placed = "15-04-2022"
+        )
     }
 
     private fun insertOrderItems() {
@@ -297,6 +333,42 @@ class UserDao @Inject constructor(
             id = "OI6",
             order_id = "O3",
             product_variant_id = "PV8",
+            quantity = 1
+        )
+
+        //O4
+        database.phoneDatabaseQueries.insertOrderItem(
+            id = "OI7",
+            order_id = "O4",
+            product_variant_id = "PV1",
+            quantity = 1
+        )
+        database.phoneDatabaseQueries.insertOrderItem(
+            id = "OI8",
+            order_id = "O4",
+            product_variant_id = "PV3",
+            quantity = 1
+        )
+
+        //O5
+        database.phoneDatabaseQueries.insertOrderItem(
+            id = "OI9",
+            order_id = "O5",
+            product_variant_id = "PV1",
+            quantity = 1
+        )
+        database.phoneDatabaseQueries.insertOrderItem(
+            id = "OI10",
+            order_id = "O5",
+            product_variant_id = "PV3",
+            quantity = 1
+        )
+
+        //O6
+        database.phoneDatabaseQueries.insertOrderItem(
+            id = "OI11",
+            order_id = "O6",
+            product_variant_id = "PV3",
             quantity = 1
         )
     }

@@ -1,6 +1,7 @@
 package com.example.theapp.ui.myorders.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,9 +32,14 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders), OrderSummarizedA
                 //setHasFixedSize(true)
                 adapter = orderItemAdapter
             }
+
+            chipGroupTypes.setOnCheckedChangeListener { group, checkedId ->
+                onChipSelect(checkedId)
+            }
         }
 
         viewModel.orders.observe(viewLifecycleOwner) {
+            Log.d("ORDERSCHANGED", "${it.size}")
             orderItemAdapter.submitList(it)
         }
     }
@@ -46,5 +52,16 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders), OrderSummarizedA
     override fun onItemClick(id: String) {
         val action = MyOrdersFragmentDirections.actionMyOrdersFragmentToOrderDetailsFragment(id)
         findNavController().navigate(action)
+    }
+
+    private fun onChipSelect(id: Int) {
+        Log.d("ChipSelect","ChipID :- $id")
+        when(id) {
+            // 1 -> All, 2 -> Completed, 3 -> In Progress, 4 -> Cancelled
+            1 -> viewModel.onChipSelected("All")
+            2 -> viewModel.onChipSelected("Completed")
+            3 -> viewModel.onChipSelected("In Progress")
+            4 -> viewModel.onChipSelected("Cancelled")
+        }
     }
 }

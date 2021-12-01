@@ -239,18 +239,26 @@ WHERE id = ?;
 
 -------------------- Order
 selectAllOrders:
-SELECT o.id, o.status, o.date_placed,
+SELECT o.id, o.status, o.date_placed, o.margin,
 oi.product_variant_id,
 c.name AS customer_name
 FROM OrderEntity o
 INNER JOIN OrderItemEntity oi ON oi.order_id = o.id
 INNER JOIN CustomerEntity c ON c.id = o.customer_id;
 
+selectOrdersByStatus:
+SELECT o.id, o.status, o.date_placed, o.margin,
+oi.product_variant_id,
+c.name AS customer_name
+FROM OrderEntity o
+INNER JOIN OrderItemEntity oi ON oi.order_id = o.id
+INNER JOIN CustomerEntity c ON c.id = o.customer_id
+WHERE o.status = ?;
+
 insertOrder:
 INSERT INTO OrderEntity
 (id, margin, cash_to_collect, product_charges, delivery_charges, order_total, customer_id, status, date_placed)
 VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?);
-
 
 selectFullOrderById:
 SELECT o.id, o.margin, o.cash_to_collect, o.product_charges, o.delivery_charges, o.order_total, o.status, o.date_placed,
