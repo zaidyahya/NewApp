@@ -165,9 +165,9 @@ scit.id AS shopping_cart_item_id, scit.product_variant_id, scit.quantity,
 prdvar.abbreviation AS size_abbreviation,
 prd.id AS product_id, prd.name AS product_name, prd.price AS product_price
 FROM ShoppingCartEntity sc
-INNER JOIN ShoppingCartItemEntity scit ON scit.shopping_cart_id = sc.id
-INNER JOIN ProductVariantEntity prdvar ON prdvar.id = scit.product_variant_id
-INNER JOIN ProductEntity prd ON prd.id = prdvar.product_id;
+LEFT JOIN ShoppingCartItemEntity scit ON scit.shopping_cart_id = sc.id
+LEFT JOIN ProductVariantEntity prdvar ON prdvar.id = scit.product_variant_id
+LEFT JOIN ProductEntity prd ON prd.id = prdvar.product_id;
 
 insertShoppingCart:
 INSERT INTO ShoppingCartEntity
@@ -209,6 +209,9 @@ WHERE id = ?;
 deleteShoppingCartItem:
 DELETE FROM ShoppingCartItemEntity
 WHERE id = ?;
+
+deleteAllShoppingCartItems:
+DELETE FROM ShoppingCartItemEntity;
 
 -------------------- Customer
 selectAllCustomers:
@@ -259,6 +262,25 @@ insertOrder:
 INSERT INTO OrderEntity
 (id, margin, cash_to_collect, product_charges, delivery_charges, order_total, customer_id, status, date_placed)
 VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?);
+
+lastOrderInsertRowId:
+SELECT last_insert_rowid();
+
+changes:
+SELECT changes();
+
+selectLastPlacedOrder:
+SELECT o.id, o.margin, o.cash_to_collect, o.product_charges, o.delivery_charges, o.order_total, o.status, o.date_placed,
+oi.id AS order_item_id, oi.product_variant_id, oi.quantity,
+prdvar.abbreviation AS size_abbreviation,
+prd.id AS product_id, prd.name AS product_name, prd.price AS product_price,
+c.id AS customer_id, c.name AS customer_name, c.address_line_1, c.address_line_2, c.city, c.phone_number, c.zip_code
+FROM OrderEntity o
+INNER JOIN OrderItemEntity oi ON oi.order_id = o.id
+INNER JOIN ProductVariantEntity prdvar ON prdvar.id = oi.product_variant_id
+INNER JOIN ProductEntity prd ON prd.id = prdvar.product_id
+INNER JOIN CustomerEntity c ON c.id = o.customer_id
+ORDER BY o.id DESC LIMIT 1;
 
 selectFullOrderById:
 SELECT o.id, o.margin, o.cash_to_collect, o.product_charges, o.delivery_charges, o.order_total, o.status, o.date_placed,

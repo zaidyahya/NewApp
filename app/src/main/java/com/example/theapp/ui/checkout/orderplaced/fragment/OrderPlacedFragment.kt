@@ -7,21 +7,26 @@ import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentOrderPlacedBinding
 import com.example.theapp.model.OrderItem
 import com.example.theapp.ui.checkout.shoppingcart.adapter.ShoppingCartItemAdapter
 import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewModel
+import com.example.theapp.ui.myorders.adapter.OrderItemAdapter
+import com.example.theapp.ui.myorders.viewmodel.OrderViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class OrderPlacedFragment : Fragment(R.layout.fragment_order_placed), ShoppingCartItemAdapter.OnItemClickListener {
+@AndroidEntryPoint
+class OrderPlacedFragment : Fragment(R.layout.fragment_order_placed) {
 
-    private val viewModel: ShoppingCartViewModel by activityViewModels()
+    private val viewModel: OrderViewModel by viewModels()
 
     private var _binding: FragmentOrderPlacedBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var shoppingCartAdapter: ShoppingCartItemAdapter
+    private lateinit var orderItemAdapter: OrderItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +37,12 @@ class OrderPlacedFragment : Fragment(R.layout.fragment_order_placed), ShoppingCa
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentOrderPlacedBinding.bind(view)
 
-        shoppingCartAdapter = ShoppingCartItemAdapter(this)
+        orderItemAdapter = OrderItemAdapter()
 
         binding.apply {
             recyclerViewOrderPlaced.apply {
-                setHasFixedSize(true)
-                adapter = shoppingCartAdapter
+                //setHasFixedSize(true)
+                adapter = orderItemAdapter
             }
 
             buttonContinueShopping.setOnClickListener {
@@ -45,9 +50,25 @@ class OrderPlacedFragment : Fragment(R.layout.fragment_order_placed), ShoppingCa
             }
         }
 
-        viewModel.order.observe(viewLifecycleOwner) {
-            Log.d("OrderPlacedFragment", "Observed")
-            shoppingCartAdapter.setOrderItems(it.items)
+
+        viewModel.placedOrder.observe(viewLifecycleOwner) {
+            Log.d("OrderPlacedFragment", "$it")
+            orderItemAdapter.submitList(it.items)
+
+            binding.apply {
+                textViewOrderId.text = "Order #: ${it.id}"
+                textViewMarginHeader.text = "Margin: Rs. ${it.margin}"
+                textViewDeliveryName.text = it.customer.name
+                textViewDeliveryNumber.text = it.customer.phoneNumber
+                textViewDeliveryAddressValue.text = "${it.customer.addressLine1} \n${it.customer.addressLine2} \n${it.customer.city}, Pakistan"
+
+                textViewProductChargesValue.text = "${it.productCharges}"
+                textViewDeliveryChargesValue.text = "${it.deliveryCharges}"
+                textViewOrderTotalValue.text = "${it.orderTotal}"
+                textViewMarginValue.text = "${it.margin}"
+                textViewCashCollectValue.text = "${it.cashToCollect}"
+            }
+
         }
     }
 
@@ -60,10 +81,6 @@ class OrderPlacedFragment : Fragment(R.layout.fragment_order_placed), ShoppingCa
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onEditButtonClick(orderItem: OrderItem) {
-
     }
 
     private fun onContinueShoppingButtonClick() {

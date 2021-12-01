@@ -3,6 +3,7 @@ package com.example.theapp.ui.checkout.shoppingcart.viewmodel
 import androidx.lifecycle.*
 import com.example.theapp.model.*
 import com.example.theapp.repository.IOrderRepository
+import com.example.theapp.repository.OrderNewRepository
 import com.example.theapp.repository.ShoppingCartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -11,7 +12,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ShoppingCartViewModel @Inject constructor(
     private val orderRepository: IOrderRepository,
-    private val shoppingCartRepository: ShoppingCartRepository
+    private val shoppingCartRepository: ShoppingCartRepository,
+    private val orderNewRepository: OrderNewRepository
 ) : ViewModel() {
 
 
@@ -20,6 +22,8 @@ class ShoppingCartViewModel @Inject constructor(
 
     lateinit var selectedCartItem: ShoppingCartItemWithDetails
     val selectedCartItemProductVariants = MutableLiveData<List<ProductVariant>>()
+
+    val placedOrderId = MutableLiveData<String>()
 
     fun addCustomerToOrderItem(customer: Customer) {
         order = orderRepository.addCustomer(customer)
@@ -87,6 +91,20 @@ class ShoppingCartViewModel @Inject constructor(
             val margin = cashToCollect - it.orderTotal!!
             viewModelScope.launch {
                 shoppingCartRepository.updateShoppingCart(margin, cashToCollect)
+            }
+        }
+    }
+
+    fun onPlaceOrderButtonClick(customer: CustomerNew) {
+        shoppingCart.value?.let {
+            viewModelScope.launch {
+                orderNewRepository.insertOrder(
+                    it.margin!!, it.cashToCollect!!, it.productCharges!!, it.deliveryCharges!!, it.orderTotal!!, it.items,
+                    customer
+                )
+
+                //val response = orderNewRepository.getLastOrderInsertedId()
+                //placedOrderId.postValue(response)
             }
         }
     }

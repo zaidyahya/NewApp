@@ -38,10 +38,11 @@
 
             <ImageView
                 android:id="@+id/image_view_check"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/guideline_left"
                 app:layout_constraintTop_toTopOf="@id/guideline_top"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_order_id"
                 android:src="@drawable/ic_baseline_check_circle_32" />
 
             <TextView
@@ -50,17 +51,16 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/guideline_top"
                 app:layout_constraintStart_toEndOf="@id/image_view_check"
-                android:paddingStart="@dimen/margin_medium"
                 android:text="Thank you for shopping with us!"
                 android:textAppearance="?attr/textAppearanceSubtitle2"/>
 
             <TextView
-                android:id="@+id/text_view_thank_you_subtitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/text_view_order_id"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/text_view_thank_you"
                 app:layout_constraintStart_toEndOf="@id/image_view_check"
-                android:paddingStart="@dimen/margin_medium"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 android:text="ID: #46407306993"
                 android:textAppearance="?attr/textAppearanceCaption"/>
 
@@ -70,7 +70,7 @@
                 android:layout_height="@dimen/margin_medium"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
-                app:layout_constraintTop_toBottomOf="@id/text_view_thank_you_subtitle"
+                app:layout_constraintTop_toBottomOf="@id/text_view_order_id"
                 android:background="@color/transparent_divider" />
 
             <View
@@ -254,7 +254,7 @@
                 android:background="@color/transparent_divider" />
 
             <TextView
-                android:id="@+id/text_view_delivery_address_city"
+                android:id="@+id/text_view_delivery_address_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/guideline_left"
@@ -267,7 +267,7 @@
                 android:layout_height="@dimen/margin_medium"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintStart_toStartOf="@id/guideline_left"
-                app:layout_constraintTop_toBottomOf="@id/text_view_delivery_address_city"
+                app:layout_constraintTop_toBottomOf="@id/text_view_delivery_address_value"
                 android:background="@color/transparent_divider" />
 
             <View

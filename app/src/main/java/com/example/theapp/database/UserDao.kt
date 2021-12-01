@@ -195,6 +195,14 @@ class UserDao @Inject constructor(
             product_variant_id = "PV4",
             quantity = 2
         )
+
+
+        database.phoneDatabaseQueries.insertShoppingCartItem(
+            id = "2SIT",
+            shopping_cart_id = "S1",
+            product_variant_id = "PV7",
+            quantity = 1
+        )
     }
 
     private fun insertCustomerItems() {

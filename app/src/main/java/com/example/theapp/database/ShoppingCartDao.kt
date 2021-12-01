@@ -1,5 +1,6 @@
 package com.example.theapp.database
 
+import android.util.Log
 import com.example.theapp.PhoneDatabase
 import com.example.theapp.SelectAllShoppingCartItemsWithDetails
 import com.example.theapp.SelectShoppingCart
@@ -41,6 +42,7 @@ class ShoppingCartDao @Inject constructor(
 //    }
 
     fun getShoppingCart(): Flow<List<SelectShoppingCart>> {
+        Log.d("WOT!", "${database.phoneDatabaseQueries.selectShoppingCart().executeAsList().size}")
         return database.phoneDatabaseQueries.selectShoppingCart().asFlow().mapToList()
     }
 

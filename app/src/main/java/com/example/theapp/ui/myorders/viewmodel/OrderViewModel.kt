@@ -1,7 +1,7 @@
 package com.example.theapp.ui.myorders.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
+import com.example.theapp.OrderEntity
 import com.example.theapp.model.OrderNew
 import com.example.theapp.model.OrderSummary
 import com.example.theapp.repository.OrderNewRepository
@@ -19,7 +19,8 @@ class OrderViewModel @Inject constructor(
 
     val order = MutableLiveData<OrderNew>()
 
-    val completedOrders = MutableLiveData<List<OrderSummary>>()
+    val completedOrders = MutableLiveData<List<OrderSummary>>() //For Earnings fragment
+    val placedOrder = orderNewRepository.getLastPlacedOrder().asLiveData()
 
     init {
         viewModelScope.launch {

@@ -66,7 +66,7 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
             //}
 
             binding.buttonPlaceOrder.setOnClickListener {
-                onPlaceOrderButtonClick()
+                onPlaceOrderButtonClick(customer)
             }
         }
 
@@ -88,6 +88,10 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
         viewModel.selectedCartItemProductVariants.observe(viewLifecycleOwner) { productVariants ->
             Log.d("OSFra - CartItemObserve", "$productVariants")
             showModifyCartItemDialog(viewModel.selectedCartItem, productVariants)
+        }
+
+        viewModel.placedOrderId.observe(viewLifecycleOwner) {
+            Log.d("PlacedOrderId", it)
         }
     }
 
@@ -125,9 +129,10 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
         }
     }
 
-    private fun onPlaceOrderButtonClick() {
-        //val action = OrderSummaryFragmentDirections.actionOrderSummaryFragmentToOrderPlacedFragment()
-        //findNavController().navigate(action)
+    private fun onPlaceOrderButtonClick(customer: CustomerNew) {
+        viewModel.onPlaceOrderButtonClick(customer)
+        val action = OrderSummaryFragmentDirections.actionOrderSummaryFragmentToOrderPlacedFragment()
+        findNavController().navigate(action)
     }
 
     private fun showModifyCartItemDialog(cartItem: ShoppingCartItemWithDetails, productVariants: List<ProductVariant>) {
