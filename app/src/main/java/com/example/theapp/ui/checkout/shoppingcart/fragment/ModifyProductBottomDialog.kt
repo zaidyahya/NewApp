@@ -28,35 +28,52 @@ class ModifyProductBottomDialog(
     ): View? {
         _binding = DialogBottomModifyProductBinding.inflate(inflater, container, false)
 
-        //val items = listOf("S", "M", "L", "XXL")
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_size_menu, productVariants)
+        binding.apply {
+            val adapter = ArrayAdapter(requireContext(), R.layout.item_size_menu, productVariants)
+            val autoCompleteTextView = textInputLayoutSize.editText as? AutoCompleteTextView
+            autoCompleteTextView?.setAdapter(adapter)
+            autoCompleteTextView?.setText(cartItem.sizeAbbreviation, false)
 
-        val autoCompleteTextView = binding.textInputLayoutSize.editText as? AutoCompleteTextView
-        autoCompleteTextView?.setAdapter(adapter)
-        //autoCompleteTextView?.setText("S",false)
-        autoCompleteTextView?.setText(cartItem.sizeAbbreviation, false)
+            imageViewProduct.setImageResource(R.drawable.kurta_1)
+            textViewName.text = cartItem.productName
+            textViewTotalPriceValue.text = "Rs. ${getTotalPrice()}"
 
-        binding.imageViewProduct.setImageResource(R.drawable.kurta_1)
-        //orderItem.product.image?.let {
-        //    binding.imageViewProduct.setImageResource(it)
-        //}
-        binding.textViewName.text = cartItem.productName
+            buttonRemove.setOnClickListener{
+                listener.onRemoveButtonClick(cartItem.id)
+                dismiss()
+            }
 
-        binding.textViewTotalPriceValue.text = "Rs. ${getTotalPrice()}"
+            buttonClose.setOnClickListener {
+                dismiss()
+            }
 
-        binding.buttonRemove.setOnClickListener {
-            listener.onRemoveButtonClick(cartItem.id)
-            dismiss()
-        }
+            textInputLayoutQuantityValue.setText("${cartItem.quantity}")
+            buttonSubtract.setOnClickListener {
+                var textInputValue = textInputLayoutQuantityValue.text.toString()
+                var value: Int = textInputValue.toInt()
+                if(value != 0) {
+                    value -= 1
+                    textInputLayoutQuantityValue.setText(value.toString())
+                }
+            }
 
-        binding.buttonClose.setOnClickListener{
-            dismiss()
-        }
+            buttonAdd.setOnClickListener {
+                var textInputValue = textInputLayoutQuantityValue.text.toString()
+                var value: Int = textInputValue.toInt()
+                value += 1
+                textInputLayoutQuantityValue.setText(value.toString())
+            }
 
-        binding.buttonContinue.setOnClickListener {
-            val selectedSize: String = autoCompleteTextView?.text.toString()
-            listener.onContinueButtonClick(selectedSize, 10)
-            dismiss()
+            buttonContinue.setOnClickListener {
+                val quantity: Int = textInputLayoutQuantityValue.text.toString().toInt()
+                if(quantity == 0) {
+                    textInputLayoutQuantity.error = "Please add a quantity"
+                } else {
+                    val selectedSize: String = autoCompleteTextView?.text.toString()
+                    listener.onContinueButtonClick(selectedSize, quantity)
+                    dismiss()
+                }
+            }
         }
 
         return binding.root

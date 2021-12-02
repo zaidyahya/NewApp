@@ -48,6 +48,7 @@ CREATE TABLE ShoppingCartItemEntity(
     FOREIGN KEY (shopping_cart_id) REFERENCES ShoppingCartEntity(id),
     FOREIGN KEY (product_variant_id) REFERENCES ProductVariantEntity(id)
 );
+CREATE UNIQUE INDEX idx_product_variant_id ON ShoppingCartItemEntity(product_variant_id);
 
 CREATE TABLE CustomerEntity(
     id TEXT PRIMARY KEY NOT NULL,
@@ -137,28 +138,6 @@ VALUES (?, ?, ?, ?);
 
 
 -------------------- Shopping Cart
--- selectShoppingCart:
--- SELECT sc.id, sc.product_charges, sc.margin, sc.cash_to_collect, sc.delivery_charges, sc.customerId,
--- scit.id AS shopping_cart_item_id, scit.quantity,
--- prdvar.abbreviation AS size_abbreviation,
--- prd.id AS product_id, prd.name AS product_name, prd.price AS product_price
--- FROM ShoppingCartEntity sc
--- INNER JOIN ShoppingCartItemEntity scit ON scit.shoppingCartId = sc.id
--- INNER JOIN ProductVariantEntity prdvar ON prdvar.id = scit.productVariantId
--- INNER JOIN ProductEntity prd ON prd.id = prdvar.productId
--- WHERE sc.id = ?;
---
--- insertShoppingCart:
--- INSERT INTO ShoppingCartEntity
--- (id, product_charges, margin, cash_to_collect, delivery_charges, customerId)
--- VALUES (?, ?, ?, ?, ?, ?);
---
--- updateShoppingCart:
--- UPDATE ShoppingCartEntity
--- SET
---     product_charges = ?
--- WHERE id = ?;
-
 selectShoppingCart:
 SELECT sc.id, sc.margin, sc.cash_to_collect,
 scit.id AS shopping_cart_item_id, scit.product_variant_id, scit.quantity,
@@ -186,13 +165,10 @@ selectAllShoppingCartItems:
 SELECT *
 FROM ShoppingCartItemEntity;
 
-selectAllShoppingCartItemsWithDetails:
-SELECT scit.id, scit.product_variant_id, scit.quantity,
-prdvar.abbreviation AS size_abbreviation,
-prd.id AS product_id, prd.name AS product_name, prd.price AS product_price
-FROM ShoppingCartItemEntity scit
-INNER JOIN ProductVariantEntity prdvar ON prdvar.id = scit.product_variant_id
-INNER JOIN ProductEntity prd ON prd.id = prdvar.product_id;
+insertOrReplaceShoppingCartItem:
+INSERT OR REPLACE INTO ShoppingCartItemEntity
+(id, shopping_cart_id, product_variant_id, quantity)
+VALUES (?, ?, ?, ?);
 
 insertShoppingCartItem:
 INSERT INTO ShoppingCartItemEntity

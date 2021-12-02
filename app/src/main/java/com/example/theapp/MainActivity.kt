@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    val cartViewModel: ShoppingCartViewModel by viewModels()
+    private val cartViewModel: ShoppingCartViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        cartViewModel.shoppingCart.observe(this) {
+            Log.d("MainActions", "$it")
+            //createBadge(it.items.size)
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,21 +77,27 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         super.onPrepareOptionsMenu(menu)
 
-        val itemsInCart = cartViewModel.order.value?.items?.size!!
-        //val itemsInCart = cartViewModel.shoppingCart.value?.items?.size!!
+        //val itemsInCart = cartViewModel.order.value?.items?.size!!
+        //val itemsInCart = cartViewModel.shoppingCart.value!!.items.size
 
-        if (itemsInCart != 0){
-            val badgeDrawable = BadgeDrawable.create(this)
-            badgeDrawable.number = itemsInCart
-            BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.toolbar, R.id.shopping_cart)
+        cartViewModel.shoppingCart.value?.let {
+            val itemsInCart = it.items.size
+            if (itemsInCart != 0) {
+                val badgeDrawable = BadgeDrawable.create(this)
+                badgeDrawable.number = itemsInCart
+                BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.toolbar, R.id.shopping_cart)
+            }
         }
+
+        //if (itemsInCart != 0){
+        //    val badgeDrawable = BadgeDrawable.create(this)
+        //    badgeDrawable.number = itemsInCart
+        //    BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.toolbar, R.id.shopping_cart)
+        //}
 
         return true
     }
 
-    /**
-     * TODO :- ShoppingCart button multiple clicks causes it to nest down
-     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.shopping_cart -> {
@@ -96,16 +108,16 @@ class MainActivity : AppCompatActivity() {
 //                    val action = NavGraphDirections.actionGlobalShoppingCartFragment()
 //                    navController.navigate(action)
 //                }
-//                if(cartViewModel.shoppingCart.value?.items?.size == 0) {
-//                    val action = NavGraphDirections.actionGlobalShoppingCartEmptyFragment()
-//                    navController.navigate(action)
-//                } else {
-//                    val action = NavGraphDirections.actionGlobalShoppingCartFragment()
-//                    navController.navigate(action)
-//                }
+                if(cartViewModel.shoppingCart.value?.items?.size == 0) {
+                    val action = NavGraphDirections.actionGlobalShoppingCartEmptyFragment()
+                    navController.navigate(action)
+                } else {
+                    val action = NavGraphDirections.actionGlobalShoppingCartFragment()
+                    navController.navigate(action)
+                }
 
-                val action = NavGraphDirections.actionGlobalShoppingCartFragment()
-                navController.navigate(action)
+//                val action = NavGraphDirections.actionGlobalShoppingCartFragment()
+//                navController.navigate(action)
                 true
             }
             else -> item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
@@ -116,8 +128,4 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    fun addOrderItem() {
-        Log.d("MainActivity", "AddProduct")
-        //cartViewModel.addOrderItem()
-    }
 }

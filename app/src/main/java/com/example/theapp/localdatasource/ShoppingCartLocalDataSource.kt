@@ -1,6 +1,5 @@
 package com.example.theapp.localdatasource
 
-import com.example.theapp.SelectAllShoppingCartItemsWithDetails
 import com.example.theapp.SelectShoppingCart
 import com.example.theapp.database.ShoppingCartDao
 import com.example.theapp.database.mapper.toEntity
@@ -12,14 +11,6 @@ class ShoppingCartLocalDataSource @Inject constructor(
     private val shoppingCartDao: ShoppingCartDao
 ) {
 
-    suspend fun insertShoppingCartItem(cartItem: ShoppingCartItem) {
-        shoppingCartDao.insertShoppingCartItem(cartItem.toEntity())
-    }
-
-    //fun getShoppingCart(): Flow<ShoppingCart> {
-    //    return shoppingCartDao.getShoppingCart()
-    //}
-
     fun getShoppingCart(): Flow<List<SelectShoppingCart>> {
         return shoppingCartDao.getShoppingCart()
     }
@@ -28,8 +19,8 @@ class ShoppingCartLocalDataSource @Inject constructor(
         shoppingCartDao.updateShoppingCart(margin, cashToCollect)
     }
 
-    fun getAllShoppingCartItemsWithDetails(): Flow<List<SelectAllShoppingCartItemsWithDetails>> {
-        return shoppingCartDao.getAllShoppingCartItemsWithDetails()
+    suspend fun insertShoppingCartItem(cartItem: ShoppingCartItem) {
+        shoppingCartDao.insertShoppingCartItem(cartItem.toEntity())
     }
 
     suspend fun updateShoppingCartItem(cartItem: ShoppingCartItem) {

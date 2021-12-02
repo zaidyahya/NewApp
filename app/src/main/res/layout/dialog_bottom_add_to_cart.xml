@@ -108,17 +108,30 @@
         android:text="Select Quantity"
         android:textAppearance="?attr/textAppearanceSubtitle1"/>
 
-    <TextView
-        android:id="@+id/text_view_quantity"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/text_view_select_quantity"
         app:layout_constraintTop_toBottomOf="@id/margin_horizontal_2"
+        app:layout_constraintBottom_toTopOf="@id/margin_horizontal_3"
         android:layout_marginStart="24dp"
-        android:text="5"
-        android:textAppearance="?attr/textAppearanceSubtitle1"/>
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_layout_quantity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
+        android:id="@+id/button_subtract"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@id/button_add"

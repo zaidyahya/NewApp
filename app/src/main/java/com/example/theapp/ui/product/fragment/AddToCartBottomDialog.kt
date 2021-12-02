@@ -42,10 +42,34 @@ class AddToCartBottomDialog(
         }
 
         binding.apply {
+            textInputLayoutQuantityValue.setText("0")
+
+            buttonSubtract.setOnClickListener{
+                var textInputValue = textInputLayoutQuantityValue.text.toString()
+                var value: Int = textInputValue.toInt()
+                if(value != 0) {
+                    value -= 1
+                    textInputLayoutQuantityValue.setText(value.toString())
+                }
+            }
+
+            buttonAdd.setOnClickListener {
+                var textInputValue = textInputLayoutQuantityValue.text.toString()
+                var value: Int = textInputValue.toInt()
+                value += 1
+                textInputLayoutQuantityValue.setText(value.toString())
+            }
+
+
             buttonContinue.setOnClickListener {
-                val selectedChip = view.findViewById<Chip>(chipGroup.checkedChipId)
-                listener.onContinueButtonClick("${selectedChip.text}", 3)
-                dismiss()
+                val quantity: Int = textInputLayoutQuantityValue.text.toString().toInt()
+                if(quantity == 0) {
+                    textInputLayoutQuantity.error = "Please add a quantity"
+                } else {
+                    val selectedChip = view.findViewById<Chip>(chipGroup.checkedChipId)
+                    listener.onContinueButtonClick("${selectedChip.text}", quantity)
+                    dismiss()
+                }
             }
         }
     }

@@ -17,9 +17,7 @@ class ShoppingCartRepository @Inject constructor(
     private val productLocalDataSource: ProductLocalDataSource
 ) {
 
-
     fun getShoppingCart(): Flow<ShoppingCart> {
-        //val rows = shoppingCartLocalDataSource.getAllShoppingCartItemsWithDetails()
         val rows = shoppingCartLocalDataSource.getShoppingCart()
         val shoppingCart = rows.map { rows ->
             ShoppingCart(
@@ -55,10 +53,6 @@ class ShoppingCartRepository @Inject constructor(
 
         return shoppingCart
     }
-
-    //fun getShoppingCart(): Flow<ShoppingCart> {
-    //    return shoppingCartLocalDataSource.getShoppingCart()
-    //}
 
     suspend fun updateShoppingCart(
         margin: Int?, cashToCollect: Int?

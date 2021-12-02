@@ -17,12 +17,7 @@ class PickAddressViewModel @Inject constructor(
     private val customerRepository: ICustomerRepository
 ) : ViewModel() {
 
-    //private val _customers = MutableLiveData<List<Customer>>() // Don't always need backing property, why?
-    //val customers: LiveData<List<Customer>>
-    //    get() = _customers
-
     //var customers: LiveData<List<Customer>> = customerRepository.getCustomers()
-
     val customersNew: LiveData<List<CustomerNew>> = customerRepository.getCustomersNew().asLiveData()
 
     fun insertCustomer(
@@ -55,17 +50,21 @@ class PickAddressViewModel @Inject constructor(
     }
 
     fun onItemClick(id: String, position: Int) {
-        /**
-         *  TODO :- Catering to required for the first Customer added. Will likely crash
-         */
         val old = customersNew.value?.find { it.isSelected }
 
-        if(old?.id != id) {
+        old?.let {
+            if(it.id != id) {
+                viewModelScope.launch {
+                    customerRepository.updateCustomerSelected(old!!.id, false)
+                    customerRepository.updateCustomerSelected(id, true) // Transaction?
+                }
+            }
+        } ?: run {
             viewModelScope.launch {
-                customerRepository.updateCustomerSelected(old!!.id, false)
-                customerRepository.updateCustomerSelected(id, true) // Transaction?
+                customerRepository.updateCustomerSelected(id, true)
             }
         }
+
     }
 
 }

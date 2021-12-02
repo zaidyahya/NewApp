@@ -18,6 +18,9 @@ import com.example.theapp.ui.myorders.adapter.OrderItemAdapter
 import com.example.theapp.ui.myorders.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * TODO :- Correct way of retrieving the last order added in table.
+ */
 @AndroidEntryPoint
 class OrderPlacedFragment : Fragment(R.layout.fragment_order_placed) {
 

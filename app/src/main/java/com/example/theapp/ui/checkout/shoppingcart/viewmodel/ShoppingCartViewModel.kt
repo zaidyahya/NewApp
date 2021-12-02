@@ -9,6 +9,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Direct to product page if clicked from cart
+ * Prevent exit of ModifyCC dialog by clicking anywhere as it's required
+ */
 @HiltViewModel
 class ShoppingCartViewModel @Inject constructor(
     private val orderRepository: IOrderRepository,
@@ -63,14 +67,17 @@ class ShoppingCartViewModel @Inject constructor(
         productVariantId: String,
         quantity: Int
     ) {
-        viewModelScope.launch {
-            shoppingCartRepository.updateShoppingCartItem(
-                ShoppingCartItem(
-                    id = selectedCartItem.id,
-                    productVariantId = productVariantId,
-                    quantity = quantity
+        // Update only if there is a change in values
+        if(productVariantId != selectedCartItem.productVariantId || quantity != selectedCartItem.quantity) {
+            viewModelScope.launch {
+                shoppingCartRepository.updateShoppingCartItem(
+                    ShoppingCartItem(
+                        id = selectedCartItem.id,
+                        productVariantId = productVariantId,
+                        quantity = quantity
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -102,9 +109,6 @@ class ShoppingCartViewModel @Inject constructor(
                     it.margin!!, it.cashToCollect!!, it.productCharges!!, it.deliveryCharges!!, it.orderTotal!!, it.items,
                     customer
                 )
-
-                //val response = orderNewRepository.getLastOrderInsertedId()
-                //placedOrderId.postValue(response)
             }
         }
     }

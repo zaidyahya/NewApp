@@ -36,6 +36,8 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
 
     private val args by navArgs<OrderSummaryFragmentArgs>()
 
+    private var prevOrderTotal: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true) // To remove the cart icon when on this fragment
@@ -74,7 +76,7 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
             Log.d("OSFragment - SCart", "$it")
             shoppingCartAdapterNew.submitList(it.items)
 
-            if(it.margin == null || it.cashToCollect == null) {
+            if(prevOrderTotal != it.orderTotal && prevOrderTotal != -1) {
                 showModifyCashCollectDialog()
             }
 
@@ -124,8 +126,9 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
         val productVariant: ProductVariant? =
             viewModel.selectedCartItemProductVariants.value?.find{ variant -> variant.abbreviation == size }
 
-        if (productVariant != null) {
-            viewModel.updateShoppingCartItem(productVariant.id, quantity)
+        productVariant?. let {
+            prevOrderTotal = viewModel.shoppingCart.value?.orderTotal!!
+            viewModel.updateShoppingCartItem(it.id, quantity)
         }
     }
 
@@ -144,6 +147,7 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
     private fun showModifyCashCollectDialog() {
         val modifyCashToCollectDialog = ModifyCashToCollectDialog(this)
         activity?.let { modifyCashToCollectDialog.show(it.supportFragmentManager, "ModifyCashToCollectDialog")}
+        prevOrderTotal = -1
     }
 
     // When update button from ModifyCashCollect dialog is clicked

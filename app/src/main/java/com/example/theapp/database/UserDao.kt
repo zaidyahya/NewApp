@@ -20,7 +20,7 @@ class UserDao @Inject constructor(
         insertProductVariants()
         insertShoppingCart()
         insertShoppingCartItems()
-        insertCustomerItems()
+        insertCustomers()
         insertOrder()
         insertOrderItems()
     }
@@ -189,7 +189,7 @@ class UserDao @Inject constructor(
     }
 
     private fun insertShoppingCartItems() {
-        database.phoneDatabaseQueries.insertShoppingCartItem(
+        database.phoneDatabaseQueries.insertOrReplaceShoppingCartItem(
             id = "1SIT",
             shopping_cart_id = "S1",
             product_variant_id = "PV4",
@@ -197,7 +197,7 @@ class UserDao @Inject constructor(
         )
 
 
-        database.phoneDatabaseQueries.insertShoppingCartItem(
+        database.phoneDatabaseQueries.insertOrReplaceShoppingCartItem(
             id = "2SIT",
             shopping_cart_id = "S1",
             product_variant_id = "PV7",
@@ -205,7 +205,7 @@ class UserDao @Inject constructor(
         )
     }
 
-    private fun insertCustomerItems() {
+    private fun insertCustomers() {
         database.phoneDatabaseQueries.insertCustomer(
             id = "1",
             name = "Ralf Rangnick",
