@@ -181,6 +181,17 @@
                 android:paddingStart="6dp"
                 tools:text="Delivered" />
 
+            <Button
+                android:id="@+id/button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintBaseline_toBaselineOf="@id/text_view_status_value"
+                style="?attr/borderlessButtonStyle"
+                android:visibility="gone"
+                android:minHeight="0dp"
+                android:text="Cancel" />
+
             <View
                 android:id="@+id/od_margin_horizontal_100"
                 android:layout_width="0dp"

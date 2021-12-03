@@ -27,6 +27,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 
+
+/**
+ * TODO :- Fixing of item_market UI
+ */
 @AndroidEntryPoint
 class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnItemCLickListener, MarketItemAdapter.OnItemCLickListener, BackupItemAdapterNew.OnItemClickListener {
 

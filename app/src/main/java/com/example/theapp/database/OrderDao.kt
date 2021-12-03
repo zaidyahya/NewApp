@@ -23,6 +23,14 @@ class OrderDao @Inject constructor(
         return database.phoneDatabaseQueries.selectAllOrders().executeAsList()
     }
 
+    fun getOrdersFlow(): Flow<List<SelectAllOrders>> {
+        return database.phoneDatabaseQueries.selectAllOrders().asFlow().mapToList()
+    }
+
+    fun getOrderFlowById(id: String): Flow<List<SelectFullOrderById>> {
+        return database.phoneDatabaseQueries.selectFullOrderById(id).asFlow().mapToList()
+    }
+
     suspend fun getOrderById(id: String): List<SelectFullOrderById> {
         return database.phoneDatabaseQueries.selectFullOrderById(id).executeAsList()
     }
@@ -63,6 +71,12 @@ class OrderDao @Inject constructor(
                 cash_to_collect = null
             )
         }
+    }
+
+    suspend fun updateOrderStatus(id: String, status: String) {
+        database.phoneDatabaseQueries.updateOrderStatus(
+            id  = id,
+            status = status)
     }
 
     suspend fun getLastInsertRowId(): Long {

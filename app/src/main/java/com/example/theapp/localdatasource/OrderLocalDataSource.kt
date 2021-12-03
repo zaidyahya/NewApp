@@ -10,12 +10,16 @@ class OrderLocalDataSource @Inject constructor(
     private val orderDao: OrderDao
 ) {
 
-//    fun getOrders(): Flow<List<SelectAllOrders>> {
-//        return orderDao.getOrders()
-//    }
+    fun getOrdersFlow(): Flow<List<SelectAllOrders>> {
+        return orderDao.getOrdersFlow()
+    }
 
     suspend fun getOrders(): List<SelectAllOrders> {
         return orderDao.getOrders()
+    }
+
+    fun getOrderFlowById(id: String): Flow<List<SelectFullOrderById>> {
+        return orderDao.getOrderFlowById(id)
     }
 
     suspend fun getOrderById(id: String): List<SelectFullOrderById> {
@@ -28,6 +32,10 @@ class OrderLocalDataSource @Inject constructor(
 
     suspend fun insertOrder(order: OrderNew) {
         orderDao.insertOrder(order)
+    }
+
+    suspend fun updateOrderStatus(id: String, status: String) {
+        orderDao.updateOrderStatus(id, status)
     }
 
     suspend fun getLastOrderInsertedId(): String {

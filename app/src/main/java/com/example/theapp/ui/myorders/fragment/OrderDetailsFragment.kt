@@ -19,7 +19,7 @@ import com.example.theapp.ui.myorders.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderDetailsFragment : Fragment(R.layout.fragment_order_details), ShoppingCartItemAdapter.OnItemClickListener {
+class OrderDetailsFragment : Fragment(R.layout.fragment_order_details) {
 
     private val viewModel: OrderViewModel by viewModels()
 
@@ -57,7 +57,10 @@ class OrderDetailsFragment : Fragment(R.layout.fragment_order_details), Shopping
                 textViewStatusValue.text = it.status
                 when(it.status) { //https://mui.com/customization/palette/
                     "Completed" -> textViewStatusValue.setTextColor(Color.parseColor("#388e3c"))
-                    "In Progress" -> textViewStatusValue.setTextColor(Color.parseColor("#f57c00"))
+                    "In Progress" -> {
+                        textViewStatusValue.setTextColor(Color.parseColor("#f57c00"))
+                        buttonCancel.visibility = View.VISIBLE
+                    }
                     "Cancelled" -> textViewStatusValue.setTextColor(Color.parseColor("#d32f2f"))
                 }
 
@@ -70,6 +73,10 @@ class OrderDetailsFragment : Fragment(R.layout.fragment_order_details), Shopping
                 textViewName.text = it.customer.name
                 textViewAddress.text = "${it.customer.addressLine1} \n${it.customer.addressLine2} \n${it.customer.city}, Pakistan"
                 textViewPhoneNumber.text = it.customer.phoneNumber
+
+                buttonCancel.setOnClickListener {
+                    onCancelButtonClick(orderId)
+                }
             }
         }
 
@@ -80,8 +87,11 @@ class OrderDetailsFragment : Fragment(R.layout.fragment_order_details), Shopping
         _binding = null
     }
 
-    override fun onEditButtonClick(orderItem: OrderItem) {
-
+    /**
+     * Confirmation Dialog
+     */
+    private fun onCancelButtonClick(id: String) {
+        viewModel.onCancelButtonClick(id)
     }
 
 

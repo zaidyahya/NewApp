@@ -10,6 +10,7 @@ import com.example.theapp.R
 import com.example.theapp.databinding.FragmentMyOrdersBinding
 import com.example.theapp.ui.myorders.adapter.OrderSummarizedAdapter
 import com.example.theapp.ui.myorders.viewmodel.OrderViewModel
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,13 +34,28 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders), OrderSummarizedA
                 adapter = orderItemAdapter
             }
 
+            // Behaves like this without this also. On 'Back' navigate, checkedChip is the old one selected.
+            //chipGroupTypes.check(
+            //    when(viewModel.selectedChipText) {
+            //        "Completed" -> R.id.chip_completed
+            //        "In Progress" -> R.id.chip_in_progress
+            //        "Cancelled" -> R.id.chip_cancelled
+            //        else -> R.id.chip_all
+            //    }
+            //)
+
             chipGroupTypes.setOnCheckedChangeListener { group, checkedId ->
-                onChipSelect(checkedId)
+                val selectedChip = view.findViewById<Chip>(checkedId)
+                onChipSelect("${selectedChip.text}")
             }
         }
 
-        viewModel.orders.observe(viewLifecycleOwner) {
+        viewModel.ordersFlow.observe(viewLifecycleOwner) {
             Log.d("ORDERSCHANGED", "${it.size}")
+            viewModel.updateOrdersToDisplay()
+        }
+
+        viewModel.ordersToDisplay.observe(viewLifecycleOwner) {
             orderItemAdapter.submitList(it)
         }
     }
@@ -54,14 +70,8 @@ class MyOrdersFragment : Fragment(R.layout.fragment_my_orders), OrderSummarizedA
         findNavController().navigate(action)
     }
 
-    private fun onChipSelect(id: Int) {
-        Log.d("ChipSelect","ChipID :- $id")
-        when(id) {
-            // 1 -> All, 2 -> Completed, 3 -> In Progress, 4 -> Cancelled
-            1 -> viewModel.onChipSelected("All")
-            2 -> viewModel.onChipSelected("Completed")
-            3 -> viewModel.onChipSelected("In Progress")
-            4 -> viewModel.onChipSelected("Cancelled")
-        }
+    private fun onChipSelect(status: String) {
+        Log.d("ChipSelect","ChipID :- $status")
+        viewModel.onChipSelected(status)
     }
 }

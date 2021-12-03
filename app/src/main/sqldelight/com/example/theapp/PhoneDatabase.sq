@@ -239,11 +239,13 @@ INSERT INTO OrderEntity
 (id, margin, cash_to_collect, product_charges, delivery_charges, order_total, customer_id, status, date_placed)
 VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?);
 
-lastOrderInsertRowId:
-SELECT last_insert_rowid();
 
-changes:
-SELECT changes();
+updateOrderStatus:
+UPDATE OrderEntity
+SET
+    status = ?
+WHERE id = ?;
+
 
 selectLastPlacedOrder:
 SELECT o.id, o.margin, o.cash_to_collect, o.product_charges, o.delivery_charges, o.order_total, o.status, o.date_placed,
@@ -271,6 +273,11 @@ INNER JOIN ProductEntity prd ON prd.id = prdvar.product_id
 INNER JOIN CustomerEntity c ON c.id = o.customer_id
 WHERE o.id = ?;
 
+lastOrderInsertRowId:
+SELECT last_insert_rowid();
+
+changes:
+SELECT changes();
 -------------------- OrderItem
 insertOrderItem:
 INSERT INTO OrderItemEntity
