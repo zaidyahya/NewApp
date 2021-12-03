@@ -5,6 +5,9 @@
       <map>
         <entry key="app/src/main/res/layout/fragment_my_orders.xml" value="0.12907608695652173" />
         <entry key="app/src/main/res/layout/fragment_order_details.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_pick_address.xml" value="0.12234042553191489" />
+        <entry key="app/src/main/res/layout/item_address.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/item_customer.xml" value="0.22" />
       </map>
     </option>
   </component>

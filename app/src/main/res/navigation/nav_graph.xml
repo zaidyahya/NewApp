@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_storeFragment_to_myEarningsFragment"
             app:destination="@id/myEarningsFragment" />
+        <action
+            android:id="@+id/action_storeFragment_to_myCustomersFragment"
+            app:destination="@id/myCustomersFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -90,6 +93,12 @@
             android:name="customer"
             app:argType="com.example.theapp.model.CustomerNew"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_addNewAddressFragment_to_myCustomersFragment"
+            app:destination="@id/myCustomersFragment" />
+        <argument
+            android:name="sourceFragment"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/orderSummaryFragment"
@@ -144,4 +153,12 @@
             app:destination="@id/marketFragment" />
     </fragment>
     <action android:id="@+id/action_global_shoppingCartEmptyFragment" app:destination="@id/shoppingCartEmptyFragment" />
+    <fragment
+        android:id="@+id/myCustomersFragment"
+        android:name="com.example.theapp.ui.mycustomers.fragment.MyCustomersFragment"
+        android:label="My Customers" >
+        <action
+            android:id="@+id/action_myCustomersFragment_to_addNewAddressFragment"
+            app:destination="@id/addNewAddressFragment" />
+    </fragment>
 </navigation>

@@ -13,6 +13,7 @@ import com.example.theapp.R
 import com.example.theapp.databinding.FragmentAddNewAddressBinding
 import com.example.theapp.model.CustomerNew
 import com.example.theapp.ui.checkout.pickaddress.viewmodel.PickAddressViewModel
+import com.example.theapp.ui.mycustomers.fragment.MyCustomersFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -80,7 +81,13 @@ class AddNewAddressFragment : Fragment(R.layout.fragment_add_new_address) {
                 viewModel.insertCustomer(name, phoneNumber, addressLine1, addressLine2, city, null)
             }
         }
-        val action = AddNewAddressFragmentDirections.actionAddNewAddressFragmentToPickAddressFragment()
-        findNavController().navigate(action)
+
+        if(args.sourceFragment == "PickAddressFragment") {
+            val action = AddNewAddressFragmentDirections.actionAddNewAddressFragmentToPickAddressFragment()
+            findNavController().navigate(action)
+        } else if(args.sourceFragment == "MyCustomersFragment") {
+            val action = AddNewAddressFragmentDirections.actionAddNewAddressFragmentToMyCustomersFragment()
+            findNavController().navigate(action)
+        }
     }
 }

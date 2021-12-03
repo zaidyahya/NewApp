@@ -55,7 +55,7 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
             }
 
             buttonAddNew.setOnClickListener {
-                val action = PickAddressFragmentDirections.actionPickAddressFragmentToAddNewAddressFragment(null)
+                val action = PickAddressFragmentDirections.actionPickAddressFragmentToAddNewAddressFragment(null, "PickAddressFragment")
                 findNavController().navigate(action)
             }
         }
@@ -83,7 +83,7 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
     }
 
     override fun onEditButtonClick(customer: CustomerNew) {
-        val action = PickAddressFragmentDirections.actionPickAddressFragmentToAddNewAddressFragment(customer)
+        val action = PickAddressFragmentDirections.actionPickAddressFragmentToAddNewAddressFragment(customer, "PickAddressFragment")
         findNavController().navigate(action)
     }
 

@@ -26,6 +26,10 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
                 val action = StoreFragmentDirections.actionStoreFragmentToMyEarningsFragment()
                 findNavController().navigate(action)
             }
+            textViewMyCustomers.setOnClickListener {
+                val action = StoreFragmentDirections.actionStoreFragmentToMyCustomersFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 
