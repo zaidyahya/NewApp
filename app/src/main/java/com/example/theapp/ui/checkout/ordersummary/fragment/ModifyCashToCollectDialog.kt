@@ -8,6 +8,7 @@ import com.example.theapp.databinding.DialogBottomModifyCashToCollectBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ModifyCashToCollectDialog(
+    private val newOrderTotal: Int,
     private val listener: OnItemClickListener
 ) : BottomSheetDialogFragment() {
 
@@ -20,11 +21,19 @@ class ModifyCashToCollectDialog(
         savedInstanceState: Bundle?
     ): View? {
         _binding = DialogBottomModifyCashToCollectBinding.inflate(inflater, container, false)
+        this.isCancelable = false
 
         binding.apply {
+            textViewNewOrderTotalValue.text = "Rs. $newOrderTotal"
+            textInputLayoutCashCollect.hint = "Order Total (Rs. $newOrderTotal) + Your Margin"
+
             buttonUpdate.setOnClickListener {
                 val cashToCollect = textInputLayoutCashCollectValue.text.toString().toInt()
                 listener.onUpdateButtonClick(cashToCollect)
+                dismiss()
+            }
+
+            buttonClose.setOnClickListener {
                 dismiss()
             }
         }

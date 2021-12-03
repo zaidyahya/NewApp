@@ -77,7 +77,7 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
             shoppingCartAdapterNew.submitList(it.items)
 
             if(prevOrderTotal != it.orderTotal && prevOrderTotal != -1) {
-                showModifyCashCollectDialog()
+                showModifyCashCollectDialog(it.orderTotal!!)
             }
 
             binding.textViewProductChargesValue.text = "Rs. ${it.productCharges}"
@@ -120,14 +120,11 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
 
     // When continue button from ModifyProduct dialog is clicked
     override fun onContinueButtonClick(size: String, quantity: Int) {
-        /**
-         * If button is clicked without any changes to values. Also don't need to show modifyCashColl values.
-         */
         val productVariant: ProductVariant? =
             viewModel.selectedCartItemProductVariants.value?.find{ variant -> variant.abbreviation == size }
 
         productVariant?. let {
-            prevOrderTotal = viewModel.shoppingCart.value?.orderTotal!!
+            prevOrderTotal = viewModel.shoppingCart.value?.orderTotal!! // Update it to previous value so the new orderTotal can be checked against it
             viewModel.updateShoppingCartItem(it.id, quantity)
         }
     }
@@ -144,8 +141,8 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
         activity?.let { modifyCartItemDialog.show(it.supportFragmentManager, "ModifyProductBottomDialog")}
     }
 
-    private fun showModifyCashCollectDialog() {
-        val modifyCashToCollectDialog = ModifyCashToCollectDialog(this)
+    private fun showModifyCashCollectDialog(newOrderTotal: Int) {
+        val modifyCashToCollectDialog = ModifyCashToCollectDialog(newOrderTotal, this)
         activity?.let { modifyCashToCollectDialog.show(it.supportFragmentManager, "ModifyCashToCollectDialog")}
         prevOrderTotal = -1
     }

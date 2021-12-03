@@ -38,7 +38,7 @@ class MarketItemAdapter(
                 Glide.with(itemView)
                     .load(catalogue.products[0].imageUrl)
                     //.error(R.drawable.easypaisa_logo)
-                    .into(imageViewImage)
+                    .into(imageViewImageOne)
 
                 textViewName.text = catalogue.name
 

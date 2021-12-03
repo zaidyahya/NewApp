@@ -2,6 +2,7 @@ package com.example.theapp.ui.market.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -39,14 +40,21 @@ class BackupItemAdapterNew(
 
         fun bind(catalogue: CatalogueNew) {
             binding.apply {
-                imageViewImage.setImageResource(R.drawable.green_big)
+                imageViewImageOne.setImageResource(R.drawable.green_big)
+                imageViewImageTwo.setImageResource(R.drawable.kurta_1)
+                imageViewImageThree.setImageResource(R.drawable.orange_small)
                 textViewName.text = catalogue.name
+
+                buttonShareNow.setOnClickListener {
+                    listener.onShareButtonClick(listOf(imageViewImageOne, imageViewImageTwo, imageViewImageThree))
+                }
             }
         }
     }
 
     interface OnItemClickListener {
         fun onItemClick(catalogue: CatalogueNew)
+        fun onShareButtonClick(images: List<ImageView>)
     }
 
     class DiffCallback: DiffUtil.ItemCallback<CatalogueNew>() {

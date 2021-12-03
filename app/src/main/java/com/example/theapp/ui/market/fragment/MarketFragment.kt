@@ -1,8 +1,17 @@
 package com.example.theapp.ui.market.fragment
 
+import android.content.ContentResolver
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +24,8 @@ import com.example.theapp.ui.market.adapter.BackupItemAdapterNew
 import com.example.theapp.ui.market.adapter.MarketItemAdapter
 import com.example.theapp.ui.market.viewmodel.MarketViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.io.FileOutputStream
 
 @AndroidEntryPoint
 class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnItemCLickListener, MarketItemAdapter.OnItemCLickListener, BackupItemAdapterNew.OnItemClickListener {
@@ -58,6 +69,49 @@ class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnI
         }
 
         //viewModel.insert()
+
+    }
+
+    // Sharing to WhatsApp :- https://guides.codepath.com/android/Sharing-Content-with-Intents
+    override fun onShareButtonClick(images: List<ImageView>) {
+        // For creation of files
+//        for((index, image) in images.withIndex()) {
+//            val drawable = image.drawable
+//
+//            val bmp = if(drawable is BitmapDrawable) {
+//                drawable.bitmap
+//            } else {
+//                null
+//            }
+//
+//            context?.let {
+//                val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_$index.png")
+//                val out = FileOutputStream(file)
+//                bmp?.compress(Bitmap.CompressFormat.PNG, 90, out)
+//                out.close()
+//            }
+//        }
+
+        val pics = ArrayList<Uri>()
+        for((index, image) in images.withIndex()) {
+            context?.let {
+                val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_$index.png")
+                val uri = FileProvider.getUriForFile(it, "com.example.theapp.fileprovider", file)
+                pics.add(uri)
+            }
+        }
+
+        val intent = Intent()
+        //intent.action = Intent.ACTION_SEND // Text x One Image
+        intent.action = Intent.ACTION_SEND_MULTIPLE // Text x Multiple Images (or one)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        intent.`package` = "com.whatsapp"
+        intent.type = "image/*"
+        //intent.putExtra(Intent.EXTRA_STREAM, uriUno) // Single Image
+        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, pics) // Multiple Images
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello!")
+        startActivity(intent)
 
     }
 

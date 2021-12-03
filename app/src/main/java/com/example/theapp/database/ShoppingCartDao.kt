@@ -2,7 +2,6 @@ package com.example.theapp.database
 
 import android.util.Log
 import com.example.theapp.PhoneDatabase
-import com.example.theapp.SelectAllShoppingCartItemsWithDetails
 import com.example.theapp.SelectShoppingCart
 import com.example.theapp.ShoppingCartItemEntity
 import com.squareup.sqldelight.runtime.coroutines.asFlow

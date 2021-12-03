@@ -43,7 +43,7 @@ class BackupItemAdapter(
         fun bind(catalogue: Catalogue) {
             binding.apply {
                 textViewName.text = catalogue.name
-                imageViewImage.setImageResource(catalogue.products[0].image!!)
+                //imageViewImage.setImageResource(catalogue.products[0].image!!)
                 buttonViewProduct.setOnClickListener {
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {

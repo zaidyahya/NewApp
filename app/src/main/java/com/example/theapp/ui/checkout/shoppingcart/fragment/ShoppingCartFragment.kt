@@ -20,8 +20,10 @@ import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewMod
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * TODO :- BottomDialog. MarginEarn textcolor change + boldening of cash collection properly. Amount changes to reflect alterations. Save/Edit cashCollect field.
- * Empty cart items, same item added again, edit item without any actual edits. Checks such as :- negative margin, empty cash collect
+ * TODO :- MarginEarn textcolor change. Checks such as :- negative margin, empty cash collect
+ * TODO :- Go to Product page from individual product in cart. Why? If one wants to add a different size, would have to browse again to find it.
+ * TODO :- MyCustomers page, Cancel in progress orders
+ * TODO :- CCDialog, Market item, Search bar, Category filtering, Share, Navigation (Anim + Headers + Pop-Ups), Dialog TextInputs Fixing
  */
 @AndroidEntryPoint
 class ShoppingCartFragment : Fragment(R.layout.fragment_shopping_cart), ShoppingCartItemNewAdapter.OnItemClickListener,
@@ -93,6 +95,9 @@ ModifyProductBottomDialog.OnItemClickListener {
             binding.textViewOrderTotalValue.text = "Rs. ${it.orderTotal}"
         }
 
+        /**
+         * TODO :- Fix this recurring display
+         */
         viewModel.selectedCartItemProductVariants.observe(viewLifecycleOwner) { productVariants ->
             Log.d("I AM HERE", "$productVariants")
             showModifyCartItemDialog(viewModel.selectedCartItem, productVariants)
