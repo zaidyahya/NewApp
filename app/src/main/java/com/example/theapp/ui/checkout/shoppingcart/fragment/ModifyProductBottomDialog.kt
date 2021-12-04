@@ -67,6 +67,7 @@ class ModifyProductBottomDialog(
             buttonContinue.setOnClickListener {
                 val quantity: Int = textInputLayoutQuantityValue.text.toString().toInt()
                 if(quantity == 0) {
+                    textInputLayoutQuantity.isErrorEnabled = true
                     textInputLayoutQuantity.error = "Please add a quantity"
                 } else {
                     val selectedSize: String = autoCompleteTextView?.text.toString()
