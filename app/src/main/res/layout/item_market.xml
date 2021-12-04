@@ -6,11 +6,25 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left_further"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="8dp" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right_further"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="8dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_right"
@@ -40,8 +54,9 @@
     <ImageView
         android:id="@+id/image_view_image_one"
         android:layout_width="250dp"
-        android:layout_height="200dp"
-        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        android:layout_height="224dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="@id/guideline_left_further"
         app:layout_constraintTop_toBottomOf="@id/im_margin_horizontal_100"
         tools:srcCompat="@drawable/orange_small" />
 
@@ -55,10 +70,11 @@
     <ImageView
         android:id="@+id/image_view_image_two"
         android:layout_width="0dp"
-        android:layout_height="98dp"
+        android:layout_height="110dp"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toEndOf="@id/im_margin_vertical_0"
         app:layout_constraintTop_toBottomOf="@id/im_margin_horizontal_100"
-        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right_further"
         tools:srcCompat="@drawable/orange_small" />
 
     <View
@@ -73,10 +89,11 @@
     <ImageView
         android:id="@+id/image_view_image_three"
         android:layout_width="0dp"
-        android:layout_height="98dp"
+        android:layout_height="110dp"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toEndOf="@id/im_margin_vertical_0"
         app:layout_constraintTop_toBottomOf="@id/im_image_spacer"
-        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right_further"
         tools:srcCompat="@drawable/orange_small" />
 
     <View
@@ -153,22 +170,25 @@
         android:id="@+id/button_share_now"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_small"
         android:text="Share Now"
-        app:icon="@drawable/ic_baseline_share_24"
+        app:icon="@drawable/ic_baseline_whatsapp_24"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toStartOf="@+id/button_view_product"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/im_margin_horizontal_2" />
 
     <Button
         android:id="@+id/button_view_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
         android:text="View Product"
         app:icon="@drawable/ic_baseline_description_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintStart_toEndOf="@+id/button_share_now"
         app:layout_constraintTop_toBottomOf="@id/im_margin_horizontal_2" />
 

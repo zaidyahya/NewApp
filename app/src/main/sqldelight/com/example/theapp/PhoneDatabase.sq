@@ -90,6 +90,9 @@ INSERT INTO CategoryEntity
 (id, name)
 VALUES (?, ?);
 
+selectAllCategories:
+SELECT * FROM CategoryEntity;
+
 
 -------------------- Catalogue
 
@@ -111,6 +114,16 @@ FROM CatalogueEntity ctl
 INNER JOIN CategoryEntity cat ON cat.id = ctl.category_id
 INNER JOIN ProductEntity prd ON prd.catalogue_id = ctl.id
 INNER JOIN ProductVariantEntity prdvar ON prdvar.product_id = prd.id;
+
+getCataloguesByCategoryId:
+SELECT ctl.id, ctl.name, ctl.description, cat.name AS category,
+prd.id AS product_id, prd.name AS product_name, prd.price AS product_price,
+prdvar.id AS product_variant_id, prdvar.name AS product_variant_name, prdvar.abbreviation AS abbreviation
+FROM CatalogueEntity ctl
+INNER JOIN CategoryEntity cat ON cat.id = ctl.category_id
+INNER JOIN ProductEntity prd ON prd.catalogue_id = ctl.id
+INNER JOIN ProductVariantEntity prdvar ON prdvar.product_id = prd.id
+WHERE ctl.category_id = ?;
 
 
 -------------------- Product

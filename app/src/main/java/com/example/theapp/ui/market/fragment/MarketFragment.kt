@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
@@ -55,6 +57,18 @@ class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnI
                 //adapter = marketAdapter
                 adapter = backupAdapterNew
             }
+
+            val categories = listOf("Kurti", "Shalwar", "Pant")
+//            val adapter = ArrayAdapter(requireContext(), R.layout.item_size_menu, categories)
+//            val autoCompleteTextView = testCategoriesInputLayout.editText as? AutoCompleteTextView
+//            autoCompleteTextView?.setAdapter(adapter)
+            //autoCompleteTextView?.setText("Kurti", false)
+            val autoCompleteTextView = testCategoriesInputLayout.editText as? AutoCompleteTextView
+
+            autoCompleteTextView?.setOnItemClickListener { parent, view, position, id ->
+                val categoryName = parent.getItemAtPosition(position) as String
+                onCategoryDropdownChange(categoryName)
+            }
         }
 
         //viewModel.catalogues.observe(viewLifecycleOwner){ // With viewModels, this seems to be the correct way to do it instead of passing the list as parameter to the adapter
@@ -70,6 +84,16 @@ class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnI
         viewModel.newCatalogues.observe(viewLifecycleOwner) {
             Log.d("NewCats", "Observed!")
             backupAdapterNew.submitList(it)
+        }
+
+        viewModel.categories.observe(viewLifecycleOwner) {
+            val categories = arrayListOf("All")
+            categories.addAll( it.map { cat -> cat.name } )
+            binding.apply {
+                val adapter = ArrayAdapter(requireContext(), R.layout.item_size_menu, categories)
+                val autoCompleteTextView = testCategoriesInputLayout.editText as? AutoCompleteTextView
+                autoCompleteTextView?.setAdapter(adapter)
+            }
         }
 
         //viewModel.insert()
@@ -129,13 +153,17 @@ class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnI
         //viewModel.insert()
         //val action = MarketFragmentDirections.actionMarketFragmentToCatalogueFragment(catalogue)
         //findNavController().navigate(action)
-
     }
 
     override fun onItemClick(catalogue: CatalogueNew) {
         Log.d("OnItemClickNew", "$catalogue")
         val action = MarketFragmentDirections.actionMarketFragmentToCatalogueFragment(catalogue)
         findNavController().navigate(action)
+    }
+
+    private fun onCategoryDropdownChange(name: String) {
+        Log.d("OnCategory", name)
+        viewModel.onCategoryDropdownChange(name)
     }
 
 }

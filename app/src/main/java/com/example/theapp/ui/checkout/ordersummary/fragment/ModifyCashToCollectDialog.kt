@@ -34,7 +34,9 @@ class ModifyCashToCollectDialog(
             }
 
             buttonClose.setOnClickListener {
-                dismiss()
+                textInputLayoutCashCollect.isErrorEnabled = true
+                textInputLayoutCashCollect.error = "Please enter a value"
+                //dismiss()
             }
         }
 

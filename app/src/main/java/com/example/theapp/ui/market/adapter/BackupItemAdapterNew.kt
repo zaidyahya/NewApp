@@ -35,6 +35,14 @@ class BackupItemAdapterNew(
                         listener.onItemClick(catalogue)
                     }
                 }
+
+                root.setOnClickListener {
+                    val position = bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val catalogue = getItem(position)
+                        listener.onItemClick(catalogue)
+                    }
+                }
             }
         }
 

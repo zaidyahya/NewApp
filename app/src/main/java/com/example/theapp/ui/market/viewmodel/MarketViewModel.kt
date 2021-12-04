@@ -3,6 +3,8 @@ package com.example.theapp.ui.market.viewmodel
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.example.theapp.model.Catalogue
+import com.example.theapp.model.CatalogueNew
+import com.example.theapp.model.Category
 import com.example.theapp.repository.ICatalogueRepository
 import com.example.theapp.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,10 +21,42 @@ class MarketViewModel @Inject constructor(
 
     var catalogues: LiveData<List<Catalogue>> = catalogueRepository.getCatalogues()
     //var user = userRepository.getUser()
-    var newCatalogues = catalogueRepository.getCataloguesNew().asLiveData()
+    //val newCatalogues = catalogueRepository.getCataloguesNew().asLiveData()
+
+    val newCatalogues = MutableLiveData<List<CatalogueNew>>()
+
+    //val categories = catalogueRepository.getCategories().asLiveData()
+    val categories = MutableLiveData<List<Category>>()
+
+    init {
+        viewModelScope.launch {
+            val response = catalogueRepository.getCataloguesNew()
+            val catResponse = catalogueRepository.getCategories()
+            newCatalogues.postValue(response)
+            categories.postValue(catResponse)
+        }
+    }
 
     val pagingCatalogues = currentQuery.switchMap { queryString ->
         catalogueRepository.getSearchResults(queryString).cachedIn(viewModelScope)
+    }
+
+    fun onCategoryDropdownChange(name: String) {
+        if(name == "All") {
+            viewModelScope.launch {
+                val response = catalogueRepository.getCataloguesNew()
+                newCatalogues.postValue(response)
+            }
+        }
+        else {
+            val category = categories.value?.find { it.name == name }
+            category?.let {
+                viewModelScope.launch {
+                    val response = catalogueRepository.getCataloguesByCategoryId(it.id)
+                    newCatalogues.postValue(response)
+                }
+            }
+        }
     }
 
     fun insert() {

@@ -16,6 +16,7 @@ import com.example.theapp.ui.checkout.shoppingcart.adapter.ShoppingCartItemAdapt
 import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewModel
 import com.example.theapp.ui.myorders.adapter.OrderItemAdapter
 import com.example.theapp.ui.myorders.viewmodel.OrderViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,7 +62,10 @@ class OrderDetailsFragment : Fragment(R.layout.fragment_order_details) {
                         textViewStatusValue.setTextColor(Color.parseColor("#f57c00"))
                         buttonCancel.visibility = View.VISIBLE
                     }
-                    "Cancelled" -> textViewStatusValue.setTextColor(Color.parseColor("#d32f2f"))
+                    "Cancelled" -> {
+                        textViewStatusValue.setTextColor(Color.parseColor("#d32f2f"))
+                        buttonCancel.visibility = View.GONE // Because when the order is cancelled from in progress, Button remains visible.
+                    }
                 }
 
                 textViewProductChargesValue.text = "Rs. ${it.productCharges}"
@@ -88,10 +92,21 @@ class OrderDetailsFragment : Fragment(R.layout.fragment_order_details) {
     }
 
     /**
-     * Confirmation Dialog
+     * TODO :- Confirmation Dialog
      */
     private fun onCancelButtonClick(id: String) {
-        viewModel.onCancelButtonClick(id)
+        context?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle("Are you sure you want to cancel this order?")
+                .setMessage("Please note that this action cannot be undone.")
+                .setNegativeButton("No") { dialog, which ->
+
+                }
+                .setPositiveButton("Yes") { dialog, which ->
+                    viewModel.onCancelButtonClick(id)
+                }
+                .show()
+        }
     }
 
 

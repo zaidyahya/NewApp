@@ -31,9 +31,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/guideline_top"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintBottom_toBottomOf="@id/button_close"
         android:text="Your Order Total Has Changed"
         android:textAllCaps="true"
-        android:textAppearance="?attr/textAppearanceSubtitle1" />
+        android:textAppearance="?attr/textAppearanceCaption" />
 
     <ImageButton
         android:id="@+id/button_close"
@@ -97,7 +98,8 @@
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         android:text="New Order Total"
-        android:textAppearance="?attr/textAppearanceSubtitle1" />
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceBody2" />
 
     <TextView
         android:id="@+id/text_view_new_order_total_value"
@@ -106,7 +108,8 @@
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_new_order_total"
         android:text="Rs. 2500"
-        android:textAppearance="?attr/textAppearanceSubtitle1"/>
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceBody2"/>
 
     <View
         android:id="@+id/margin_horizontal_3"
@@ -130,7 +133,7 @@
     <View
         android:id="@+id/margin_horizontal_4"
         android:layout_width="0dp"
-        android:layout_height="@dimen/margin_medium"
+        android:layout_height="@dimen/margin_small"
         android:background="@color/transparent_divider"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
@@ -151,8 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
-            android:textAlignment="textEnd"
-            android:textAppearance="?attr/textAppearanceSubtitle1" />
+            android:textAppearance="?attr/textAppearanceBody2" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

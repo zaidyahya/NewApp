@@ -3,6 +3,7 @@ package com.example.theapp.ui.catalogue.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.theapp.R
 import com.example.theapp.databinding.ItemCatalogueBinding
 import com.example.theapp.model.ProductNew
 
@@ -44,7 +45,8 @@ class CatalogueItemAdapterNew(
         fun bind(product: ProductNew) {
             binding.apply {
                 textViewName.text = product.name
-                textViewPrice.text = "${product.price}"
+                textViewPrice.text = "Rs. ${product.price}"
+                imageViewImage.setImageResource(R.drawable.orange_small)
             }
         }
     }

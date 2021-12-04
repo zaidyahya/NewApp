@@ -188,6 +188,7 @@
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintBaseline_toBaselineOf="@id/text_view_status_value"
                 style="?attr/borderlessButtonStyle"
+                android:visibility="gone"
                 android:minHeight="0dp"
                 android:text="Cancel Order" />
 

@@ -12,6 +12,7 @@ import com.example.theapp.api.UnsplashApi
 import com.example.theapp.localdatasource.CatalogueLocalDataSource
 import com.example.theapp.model.Catalogue
 import com.example.theapp.model.CatalogueNew
+import com.example.theapp.model.Category
 import com.example.theapp.model.Product
 import kotlinx.coroutines.flow.Flow
 import java.util.*
@@ -49,8 +50,16 @@ class CatalogueRepository @Inject constructor(
         ).liveData
     }
 
-    override fun getCataloguesNew(): Flow<List<CatalogueNew>> {
+    override suspend fun getCataloguesByCategoryId(id: String): List<CatalogueNew> {
+        return catalogueLocalDataSource.getCataloguesByCategoryId(id)
+    }
+
+    override suspend fun getCataloguesNew(): List<CatalogueNew> {
         return catalogueLocalDataSource.getCatalogues()
+    }
+
+    override fun getCategories(): List<Category> {
+        return catalogueLocalDataSource.getCategories()
     }
 
 }

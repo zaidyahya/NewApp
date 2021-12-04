@@ -22,8 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 /**
  * TODO :- MarginEarn textcolor change. Checks such as :- negative margin, empty cash collect
  * TODO :- Go to Product page from individual product in cart. Why? If one wants to add a different size, would have to browse again to find it.
- * TODO :- MyCustomers page, Cancel in progress orders, Images + Images Scroller
- * TODO :- CCDialog, Market item, Search bar, Category filtering, Share, Navigation (Anim + Headers + Pop-Ups), Dialog TextInputs Fixing
+ * TODO :- Images + Images Scroller
+ * TODO :- Search bar, Category filtering, Navigation (Anim + Headers + Pop-Ups), Dialog TextInputs Fixing
  */
 @AndroidEntryPoint
 class ShoppingCartFragment : Fragment(R.layout.fragment_shopping_cart), ShoppingCartItemNewAdapter.OnItemClickListener,
