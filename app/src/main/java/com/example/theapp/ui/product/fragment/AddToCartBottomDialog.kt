@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import com.example.theapp.R
 import com.example.theapp.databinding.DialogBottomAddToCartBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -58,6 +59,10 @@ class AddToCartBottomDialog(
                 var value: Int = textInputValue.toInt()
                 value += 1
                 textInputLayoutQuantityValue.setText(value.toString())
+            }
+
+            textInputLayoutQuantityValue.doOnTextChanged { text, start, before, count ->
+                textInputLayoutQuantity.isErrorEnabled = false
             }
 
 

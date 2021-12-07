@@ -1,5 +1,6 @@
 package com.example.theapp.ui.checkout.shoppingcart.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -20,7 +21,7 @@ import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewMod
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * TODO :- MarginEarn textcolor change. Checks such as :- negative margin, empty cash collect
+ * TODO :- MarginEarn textcolor change. Checks such as :- negative margin, empty cash collect. When error is there, remove upon retype. Error icon takes too much space
  * TODO :- Go to Product page from individual product in cart. Why? If one wants to add a different size, would have to browse again to find it.
  * TODO :- Images + Images Scroller
  * TODO :- Search bar, Category filtering, Navigation (Anim + Headers + Pop-Ups), Dialog TextInputs Fixing
@@ -69,16 +70,31 @@ ModifyProductBottomDialog.OnItemClickListener {
             }
 
             textInputLayoutCashCollectValue.doOnTextChanged { text, start, before, count ->
+                textInputLayoutCashCollect.isErrorEnabled = false
                 val calculatedMargin = calculateMargin("$text")
                 textViewMarginValue.text = "Rs. ${calculatedMargin}"
+                if(calculatedMargin <= 0) {
+                    textViewMargin.setTextColor(Color.parseColor("#d32f2f"))
+                    textViewMarginValue.setTextColor(Color.parseColor("#d32f2f"))
+                } else {
+                    textViewMargin.setTextColor(Color.parseColor("#388e3c"))
+                    textViewMarginValue.setTextColor(Color.parseColor("#388e3c"))
+                }
             }
 
             buttonContinue.setOnClickListener {
                 val margin = textViewMarginValue.text.toString().replace("Rs. ", "").toInt()
-                val cashToCollect = textInputLayoutCashCollectValue.text.toString().replace("Rs. ", "").toInt()
-                viewModel.onContinueButtonClick(margin, cashToCollect)
-                val action = ShoppingCartFragmentDirections.actionShoppingCartFragmentToPickAddressFragment()
-                findNavController().navigate(action)
+                val textCashCollect = textInputLayoutCashCollectValue.text.toString().replace("Rs. ", "")
+
+                if(textCashCollect == "" || margin <= 0) {
+                    textInputLayoutCashCollect.isErrorEnabled = true
+                    textInputLayoutCashCollect.error = "Amount is too low"
+                } else {
+                    val cashToCollect = textCashCollect.toInt()
+                    viewModel.onContinueButtonClick(margin, cashToCollect)
+                    val action = ShoppingCartFragmentDirections.actionShoppingCartFragmentToPickAddressFragment()
+                    findNavController().navigate(action)
+                }
             }
         }
 

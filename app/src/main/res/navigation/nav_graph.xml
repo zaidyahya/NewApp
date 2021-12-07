@@ -8,20 +8,26 @@
     <fragment
         android:id="@+id/marketFragment"
         android:name="com.example.theapp.ui.market.fragment.MarketFragment"
-        android:label="fragment_market"
-        tools:layout="@layout/fragment_market" >
+        android:label="Market"
+        tools:layout="@layout/fragment_market">
         <action
             android:id="@+id/action_marketFragment_to_catalogueFragment"
-            app:destination="@id/catalogueFragment" />
+            app:destination="@id/catalogueFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/catalogueFragment"
         android:name="com.example.theapp.ui.catalogue.fragment.CatalogueFragment"
-        android:label="fragment_catalogue"
-        tools:layout="@layout/fragment_catalogue" >
+        android:label=""
+        tools:layout="@layout/fragment_catalogue">
         <action
             android:id="@+id/action_catalogueFragment_to_productFragment"
-            app:destination="@id/productFragment" />
+            app:destination="@id/productFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
         <argument
             android:name="catalogue"
             app:argType="com.example.theapp.model.CatalogueNew" />
@@ -29,40 +35,63 @@
     <fragment
         android:id="@+id/shoppingCartFragment"
         android:name="com.example.theapp.ui.checkout.shoppingcart.fragment.ShoppingCartFragment"
-        android:label="fragment_shopping_cart"
-        tools:layout="@layout/fragment_shopping_cart" >
+        android:label="Your Cart"
+        tools:layout="@layout/fragment_shopping_cart">
         <action
             android:id="@+id/action_shoppingCartFragment_to_pickAddressFragment"
-            app:destination="@id/pickAddressFragment" />
-    </fragment><action android:id="@+id/action_global_shoppingCartFragment" app:destination="@id/shoppingCartFragment"/>
+            app:destination="@id/pickAddressFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_shoppingCartFragment"
+        app:destination="@id/shoppingCartFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:popUpTo="@id/marketFragment"
+        app:popUpToInclusive="false" />
     <fragment
         android:id="@+id/storeFragment"
         android:name="com.example.theapp.ui.store.fragment.StoreFragment"
-        android:label="fragment_store"
-        tools:layout="@layout/fragment_store" >
+        android:label="Store"
+        tools:layout="@layout/fragment_store">
         <action
             android:id="@+id/action_storeFragment_to_myOrdersFragment"
-            app:destination="@id/myOrdersFragment" />
+            app:destination="@id/myOrdersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_storeFragment_to_myEarningsFragment"
-            app:destination="@id/myEarningsFragment" />
+            app:destination="@id/myEarningsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_storeFragment_to_myCustomersFragment"
-            app:destination="@id/myCustomersFragment" />
+            app:destination="@id/myCustomersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.theapp.ui.account.fragment.AccountFragment"
-        android:label="fragment_account"
+        android:label="Account"
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/productFragment"
         android:name="com.example.theapp.ui.product.fragment.ProductFragment"
-        android:label="fragment_product"
-        tools:layout="@layout/fragment_product" >
+        tools:layout="@layout/fragment_product">
         <action
             android:id="@+id/action_productFragment_to_shoppingCartFragment"
-            app:destination="@id/shoppingCartFragment" />
+            app:destination="@id/shoppingCartFragment"
+            app:enterAnim="@anim/slide_in_right" />
         <argument
             android:name="product"
             app:argType="com.example.theapp.model.ProductNew" />
@@ -70,23 +99,28 @@
     <fragment
         android:id="@+id/pickAddressFragment"
         android:name="com.example.theapp.ui.checkout.pickaddress.fragment.PickAddressFragment"
-        android:label="fragment_pick_address"
-        tools:layout="@layout/fragment_pick_address" >
+        android:label="Choose Delivery Customer"
+        tools:layout="@layout/fragment_pick_address">
         <action
             android:id="@+id/action_pickAddressFragment_to_addNewAddressFragment"
-            app:destination="@id/addNewAddressFragment" />
+            app:destination="@id/addNewAddressFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
         <action
             android:id="@+id/action_pickAddressFragment_to_orderSummaryFragment"
-            app:destination="@id/orderSummaryFragment" />
+            app:destination="@id/orderSummaryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/addNewAddressFragment"
         android:name="com.example.theapp.ui.addnewaddress.fragment.AddNewAddressFragment"
-        android:label="fragment_add_new_address"
-        tools:layout="@layout/fragment_add_new_address" >
+        tools:layout="@layout/fragment_add_new_address">
         <action
             android:id="@+id/action_addNewAddressFragment_to_pickAddressFragment"
             app:destination="@id/pickAddressFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_in_left"
             app:popUpTo="@id/pickAddressFragment"
             app:popUpToInclusive="true" />
         <argument
@@ -95,7 +129,10 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_addNewAddressFragment_to_myCustomersFragment"
-            app:destination="@id/myCustomersFragment" />
+            app:destination="@id/myCustomersFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:popUpTo="@id/myCustomersFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="sourceFragment"
             app:argType="string" />
@@ -103,33 +140,37 @@
     <fragment
         android:id="@+id/orderSummaryFragment"
         android:name="com.example.theapp.ui.checkout.ordersummary.fragment.OrderSummaryFragment"
-        android:label="fragment_order_summary"
-        tools:layout="@layout/fragment_order_summary" >
+        android:label="Order Summary"
+        tools:layout="@layout/fragment_order_summary">
         <action
             android:id="@+id/action_orderSummaryFragment_to_orderPlacedFragment"
-            app:destination="@id/orderPlacedFragment" />
-        <argument android:name="customer"
+            app:destination="@id/orderPlacedFragment"
+            app:enterAnim="@anim/slide_in_right" />
+        <argument
+            android:name="customer"
             app:argType="com.example.theapp.model.CustomerNew" />
     </fragment>
     <fragment
         android:id="@+id/myOrdersFragment"
         android:name="com.example.theapp.ui.myorders.fragment.MyOrdersFragment"
-        android:label="fragment_my_orders"
-        tools:layout="@layout/fragment_my_orders" >
+        android:label="My Orders"
+        tools:layout="@layout/fragment_my_orders">
         <action
             android:id="@+id/action_myOrdersFragment_to_orderDetailsFragment"
-            app:destination="@id/orderDetailsFragment" />
+            app:destination="@id/orderDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/myEarningsFragment"
         android:name="com.example.theapp.ui.myearnings.fragment.MyEarningsFragment"
-        android:label="fragment_my_earnings"
+        android:label="My Earnings"
         tools:layout="@layout/fragment_my_earnings" />
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.theapp.ui.myorders.fragment.OrderDetailsFragment"
-        android:label="fragment_order_details"
-        tools:layout="@layout/fragment_order_details" >
+        android:label="Order Details"
+        tools:layout="@layout/fragment_order_details">
         <argument
             android:name="orderId"
             app:argType="string" />
@@ -137,11 +178,12 @@
     <fragment
         android:id="@+id/orderPlacedFragment"
         android:name="com.example.theapp.ui.checkout.orderplaced.fragment.OrderPlacedFragment"
-        android:label="fragment_order_placed"
-        tools:layout="@layout/fragment_order_placed" >
+        android:label="Order Placed"
+        tools:layout="@layout/fragment_order_placed">
         <action
             android:id="@+id/action_orderPlacedFragment_to_marketFragment"
-            app:destination="@id/marketFragment" />
+            app:destination="@id/marketFragment"
+            app:enterAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
         android:id="@+id/shoppingCartEmptyFragment"
@@ -150,15 +192,24 @@
         tools:layout="@layout/fragment_shopping_cart_empty" >
         <action
             android:id="@+id/action_shoppingCartEmptyFragment_to_marketFragment"
-            app:destination="@id/marketFragment" />
+            app:destination="@id/marketFragment"
+            app:enterAnim="@anim/slide_in_right" />
     </fragment>
-    <action android:id="@+id/action_global_shoppingCartEmptyFragment" app:destination="@id/shoppingCartEmptyFragment" />
+    <action
+        android:id="@+id/action_global_shoppingCartEmptyFragment"
+        app:destination="@id/shoppingCartEmptyFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
     <fragment
         android:id="@+id/myCustomersFragment"
         android:name="com.example.theapp.ui.mycustomers.fragment.MyCustomersFragment"
         android:label="My Customers" >
         <action
             android:id="@+id/action_myCustomersFragment_to_addNewAddressFragment"
-            app:destination="@id/addNewAddressFragment" />
+            app:destination="@id/addNewAddressFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
 </navigation>

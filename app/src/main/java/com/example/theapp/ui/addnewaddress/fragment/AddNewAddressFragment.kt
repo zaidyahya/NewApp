@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.theapp.MainActivity
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentAddNewAddressBinding
 import com.example.theapp.model.CustomerNew
@@ -37,6 +38,13 @@ class AddNewAddressFragment : Fragment(R.layout.fragment_add_new_address) {
         _binding = FragmentAddNewAddressBinding.bind(view)
 
         val customer: CustomerNew? = args.customer
+        val mainActivity = activity as MainActivity
+        customer?.let {
+            mainActivity.setActionBarTitle("Edit Customer")
+        } ?: run {
+            mainActivity.setActionBarTitle("Add New Customer")
+        }
+
 
         binding.apply {
             buttonSaveAndContinue.setOnClickListener {

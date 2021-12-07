@@ -112,10 +112,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_quantity"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toEndOf="@id/text_view_select_quantity"
         app:layout_constraintTop_toTopOf="@id/text_view_select_quantity"
+        app:layout_constraintEnd_toStartOf="@id/button_subtract"
         app:layout_constraintBottom_toBottomOf="@id/text_view_select_quantity"
         android:layout_marginStart="24dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -123,7 +124,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_input_layout_quantity_value"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:clickable="false"

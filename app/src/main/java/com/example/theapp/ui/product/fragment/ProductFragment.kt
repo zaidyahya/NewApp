@@ -25,18 +25,18 @@ class ProductFragment : Fragment(R.layout.fragment_product), AddToCartBottomDial
     //private lateinit var product: Product
     private lateinit var product: ProductNew
 
-    private lateinit var mainActivity: MainActivity
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentProductBinding.bind(view)
 
-        mainActivity = activity as MainActivity
         product = args.product
+        val mainActivity = activity as MainActivity
+        mainActivity.setActionBarTitle(product.name)
 
         binding.apply {
             viewPagerImages.adapter = ProductImagesAdapter()
+            viewPagerTabs.setupWithViewPager(viewPagerImages, true)
             buttonAddToCart.setOnClickListener {
                 showAddToCartDialog()
             }

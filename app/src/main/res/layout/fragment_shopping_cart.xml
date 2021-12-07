@@ -253,7 +253,7 @@
                 app:layout_constraintBottom_toTopOf="@id/margin_horizontal_8"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:prefixText="Rs."
-                android:hint="Amount" >
+                android:hint="Amount">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/text_input_layout_cash_collect_value"

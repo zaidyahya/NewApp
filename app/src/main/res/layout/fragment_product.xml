@@ -39,6 +39,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/view_pager_tabs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintBottom_toTopOf="@id/divider_horizontal_0"
+                app:tabBackground="@drawable/indicator_selector"
+                android:background="@android:color/transparent" />
+
             <View
                 android:id="@+id/divider_horizontal_0"
                 android:layout_width="match_parent"

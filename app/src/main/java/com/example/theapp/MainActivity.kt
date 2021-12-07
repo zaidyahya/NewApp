@@ -128,4 +128,10 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    fun setActionBarTitle(title: String) {
+        supportActionBar?.let {
+            it.title = title
+        }
+    }
+
 }

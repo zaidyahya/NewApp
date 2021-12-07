@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.core.widget.doOnTextChanged
 import com.example.theapp.R
 import com.example.theapp.databinding.DialogBottomModifyProductBinding
 import com.example.theapp.model.ShoppingCartItemWithDetails
@@ -64,6 +65,10 @@ class ModifyProductBottomDialog(
                 textInputLayoutQuantityValue.setText(value.toString())
             }
 
+            textInputLayoutQuantityValue.doOnTextChanged { text, start, before, count ->
+                textInputLayoutQuantity.isErrorEnabled = false
+            }
+
             buttonContinue.setOnClickListener {
                 val quantity: Int = textInputLayoutQuantityValue.text.toString().toInt()
                 if(quantity == 0) {
@@ -85,7 +90,7 @@ class ModifyProductBottomDialog(
     }
 
     private fun getTotalPrice(): Int {
-        return cartItem.productPrice.toInt() * cartItem.quantity.toInt()
+        return cartItem.productPrice * cartItem.quantity
     }
 
     interface OnItemClickListener {
