@@ -1,6 +1,5 @@
 package com.example.theapp.ui.market.fragment
 
-import android.content.ContentResolver
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -13,7 +12,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import androidx.core.content.FileProvider
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,9 +19,8 @@ import com.example.theapp.R
 import com.example.theapp.databinding.FragmentMarketBinding
 import com.example.theapp.model.Catalogue
 import com.example.theapp.model.CatalogueNew
-import com.example.theapp.ui.market.adapter.BackupItemAdapter
-import com.example.theapp.ui.market.adapter.BackupItemAdapterNew
 import com.example.theapp.ui.market.adapter.MarketItemAdapter
+import com.example.theapp.ui.market.adapter.MarketPagingAdapter
 import com.example.theapp.ui.market.viewmodel.MarketViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -34,16 +31,15 @@ import java.io.FileOutputStream
  * TODO :- Fixing of item_market UI
  */
 @AndroidEntryPoint
-class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnItemCLickListener, MarketItemAdapter.OnItemCLickListener, BackupItemAdapterNew.OnItemClickListener {
+class MarketFragment : Fragment(R.layout.fragment_market), MarketPagingAdapter.OnItemCLickListener, MarketItemAdapter.OnItemClickListener {
 
     private val viewModel: MarketViewModel by viewModels()
 
     private var _binding: FragmentMarketBinding? = null
     private val binding get() = _binding!!
 
-    private val backupAdapter = BackupItemAdapter(this)
-    private val backupAdapterNew = BackupItemAdapterNew(this)
-    private val marketAdapter = MarketItemAdapter(this)
+    private val backupAdapterNew = MarketItemAdapter(this)
+    private val marketAdapter = MarketPagingAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -12,18 +12,16 @@ import androidx.navigation.fragment.navArgs
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentOrderSummaryBinding
 import com.example.theapp.model.CustomerNew
-import com.example.theapp.model.OrderItem
 import com.example.theapp.model.ProductVariant
 import com.example.theapp.model.ShoppingCartItemWithDetails
 import com.example.theapp.ui.checkout.shoppingcart.adapter.ShoppingCartItemAdapter
-import com.example.theapp.ui.checkout.shoppingcart.adapter.ShoppingCartItemNewAdapter
 import com.example.theapp.ui.checkout.shoppingcart.fragment.ModifyProductBottomDialog
 import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewModel
 
 /**
  * TODO :- No CashCollect dialog to be shown if modification is made without any actual modification
  */
-class OrderSummaryFragment : Fragment(R.layout.fragment_order_summary), ShoppingCartItemNewAdapter.OnItemClickListener,
+class OrderSummaryFragment : Fragment(R.layout.fragment_order_summary), ShoppingCartItemAdapter.OnItemClickListener,
 ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemClickListener {
 
     private val viewModel: ShoppingCartViewModel by activityViewModels() // Because it's activityViewModels, @AndroidEntryPoint injection not needed i.e. it doesn't crash, not theoretically
@@ -32,7 +30,6 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
     private val binding get() = _binding!!
 
     private lateinit var shoppingCartAdapter: ShoppingCartItemAdapter
-    private lateinit var shoppingCartAdapterNew: ShoppingCartItemNewAdapter
 
     private val args by navArgs<OrderSummaryFragmentArgs>()
 
@@ -50,14 +47,14 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
         val customer: CustomerNew = args.customer
 
         //shoppingCartAdapter = ShoppingCartItemAdapter(this)
-        shoppingCartAdapterNew = ShoppingCartItemNewAdapter(this)
+        shoppingCartAdapter = ShoppingCartItemAdapter(this)
 
 
         binding.apply {
             recyclerViewShoppingCart.apply {
                 //setHasFixedSize(true)
                 //adapter = shoppingCartAdapter
-                adapter = shoppingCartAdapterNew
+                adapter = shoppingCartAdapter
             }
 
             textViewCustomerName.text = customer.name
@@ -74,7 +71,7 @@ ModifyProductBottomDialog.OnItemClickListener, ModifyCashToCollectDialog.OnItemC
 
         viewModel.shoppingCart.observe(viewLifecycleOwner) {
             Log.d("OSFragment - SCart", "$it")
-            shoppingCartAdapterNew.submitList(it.items)
+            shoppingCartAdapter.submitList(it.items)
 
             if(prevOrderTotal != it.orderTotal && prevOrderTotal != -1) {
                 showModifyCashCollectDialog(it.orderTotal!!)

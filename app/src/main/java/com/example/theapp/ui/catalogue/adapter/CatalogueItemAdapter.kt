@@ -1,14 +1,15 @@
 package com.example.theapp.ui.catalogue.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.theapp.R
 import com.example.theapp.databinding.ItemCatalogueBinding
-import com.example.theapp.model.Product
+import com.example.theapp.model.ProductNew
 
 class CatalogueItemAdapter(
-    private val productList: List<Product>,
+    private val productList: List<ProductNew>,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<CatalogueItemAdapter.CatalogueItemViewHolder>(){
 
@@ -20,42 +21,43 @@ class CatalogueItemAdapter(
 
     override fun onBindViewHolder(holder: CatalogueItemViewHolder, position: Int) {
         val currentItem = productList[position]
-
-        if (currentItem != null) {
-            holder.bind(currentItem)
-        }
+        holder.bind(currentItem)
     }
 
     override fun getItemCount(): Int {
         return productList.size
     }
 
-    inner class CatalogueItemViewHolder(private val binding: ItemCatalogueBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+    inner class CatalogueItemViewHolder(private val binding: ItemCatalogueBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener(this)
-            binding.buttonShareNow.setOnClickListener { listener.onShareNowButtonClick() }
-        }
-
-        fun bind(product: Product) {
             binding.apply {
-                product.image?.let {
-                    imageViewImage.setImageResource(it) // Views of the item_catalogue.xml, as we are ViewBinding that layout here
+                root.setOnClickListener {
+                    val position = bindingAdapterPosition
+                    if(position != RecyclerView.NO_POSITION) {
+                        val product = productList[position]
+                        listener.onItemClick(product)
+                    }
+                }
+
+                buttonShareNow.setOnClickListener {
+                    listener.onShareNowButtonClick(listOf(imageViewImage))
                 }
             }
         }
 
-        override fun onClick(v: View?) {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                val product = productList[position]
-                listener.onItemClick(product)
+
+        fun bind(product: ProductNew) {
+            binding.apply {
+                textViewName.text = product.name
+                textViewPrice.text = "Rs. ${product.price}"
+                imageViewImage.setImageResource(R.drawable.orange_small)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(product: Product)
-        fun onShareNowButtonClick()
+        fun onItemClick(product: ProductNew)
+        fun onShareNowButtonClick(images: List<ImageView>)
     }
 }

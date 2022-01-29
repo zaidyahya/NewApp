@@ -2,18 +2,12 @@ package com.example.theapp.ui.myorders.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentOrderDetailsBinding
-import com.example.theapp.model.OrderItem
-import com.example.theapp.ui.checkout.ordersummary.fragment.OrderSummaryFragmentArgs
-import com.example.theapp.ui.checkout.shoppingcart.adapter.ShoppingCartItemAdapter
-import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewModel
 import com.example.theapp.ui.myorders.adapter.OrderItemAdapter
 import com.example.theapp.ui.myorders.viewmodel.OrderViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

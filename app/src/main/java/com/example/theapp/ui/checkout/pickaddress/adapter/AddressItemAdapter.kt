@@ -7,73 +7,75 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.theapp.databinding.ItemAddressBinding
-import com.example.theapp.model.Customer
+import com.example.theapp.model.CustomerNew
 
-/**
- * ListAdapter because :-
- *  - It adds UI animations for add/edit/delete. So better accustomed for those RecyclerViews where modifications will happen
- *  - It does computation for same/changed objects in background thread
- */
 class AddressItemAdapter(
     private val listener: OnItemClickListener
-) : ListAdapter<Customer, AddressItemAdapter.AddressItemViewHolder>(DiffCallBack()) {
+) : ListAdapter<CustomerNew, AddressItemAdapter.AddressItemViewHolder>(DiffCallback()){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressItemAdapter.AddressItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressItemViewHolder {
         val binding = ItemAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AddressItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AddressItemAdapter.AddressItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AddressItemViewHolder, position: Int) {
         val currentItem = getItem(position)
-
-        if(currentItem != null) {
-            holder.bind(currentItem)
-        }
+        holder.bind(currentItem)
     }
 
-    inner class AddressItemViewHolder(private val binding: ItemAddressBinding) : RecyclerView.ViewHolder(binding.root),
-    View.OnClickListener {
+
+    inner class AddressItemViewHolder(private val binding: ItemAddressBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener(this)
+//            binding.apply {
+//                root.setOnClickListener {
+//                    val position = bindingAdapterPosition
+//                    if(position != RecyclerView.NO_POSITION) {
+//                        listener.onItemClick(position)
+//                    }
+//                }
+//            }
         }
 
-        fun bind(customer: Customer) {
+        fun bind(customer: CustomerNew) {
             val isSelected = customer.isSelected
-
             binding.apply {
                 textViewName.text = customer.name
+                textViewPhoneNumber.text = customer.phoneNumber
+                textViewAddress.text = "${customer.addressLine1} \n${customer.addressLine2} \n${customer.city}, Pakistan"
+
+                radioButton.isChecked = isSelected
                 buttonEdit.visibility = if(isSelected) View.VISIBLE else View.GONE
                 buttonDeliverToAddress.visibility = if(isSelected) View.VISIBLE else View.GONE
-                radioButton.isChecked = isSelected
+
+                root.setOnClickListener {
+                    val position = bindingAdapterPosition
+                    if(position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(customer.id, position)
+                    }
+                }
+
                 buttonEdit.setOnClickListener { listener.onEditButtonClick(customer) }
+
                 buttonDeliverToAddress.setOnClickListener { listener.onDeliverButtonClick(customer) }
             }
-        }
-
-        // Method gets called when item gets clicked. Implemented due to View.OnClickListener implementation
-        override fun onClick(v: View?) {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position)
-            }
-        }
-    }
-
-    class DiffCallBack : DiffUtil.ItemCallback<Customer>() {
-        override fun areItemsTheSame(oldItem: Customer, newItem: Customer): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Customer, newItem: Customer): Boolean {
-            return oldItem == newItem // Data class automatically implements equals method that compares the property of the model
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
-        fun onEditButtonClick(customer: Customer)
-        fun onDeliverButtonClick(customer: Customer)
+        fun onItemClick(id: String, position: Int)
+        fun onEditButtonClick(customer: CustomerNew)
+        fun onDeliverButtonClick(customer: CustomerNew)
     }
 
+    class DiffCallback : DiffUtil.ItemCallback<CustomerNew>() {
+        override fun areItemsTheSame(oldItem: CustomerNew, newItem: CustomerNew): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: CustomerNew, newItem: CustomerNew): Boolean {
+            return oldItem == newItem
+        }
+
+    }
 }

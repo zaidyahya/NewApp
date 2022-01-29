@@ -11,16 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentPickAddressBinding
-import com.example.theapp.model.Customer
 import com.example.theapp.model.CustomerNew
 import com.example.theapp.ui.checkout.pickaddress.adapter.AddressItemAdapter
-import com.example.theapp.ui.checkout.pickaddress.adapter.AddressItemAdapterNew
 import com.example.theapp.ui.checkout.pickaddress.viewmodel.PickAddressViewModel
 import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressItemAdapterNew.OnItemClickListener {
+class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressItemAdapter.OnItemClickListener {
 
     private val cartViewModel: ShoppingCartViewModel by activityViewModels()
     private val viewModel: PickAddressViewModel by viewModels()
@@ -29,7 +27,7 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
     private val binding get() = _binding!!
 
     //private lateinit var addressItemAdapter: AddressItemAdapter
-    private lateinit var addressItemAdapterNew: AddressItemAdapterNew
+    private lateinit var addressItemAdapter: AddressItemAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,14 +42,14 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
         //addressItemAdapter = AddressItemAdapter(addressItems!!, this)
 
         //addressItemAdapter = AddressItemAdapter(this)
-        addressItemAdapterNew = AddressItemAdapterNew(this)
+        addressItemAdapter = AddressItemAdapter(this)
 
         _binding = FragmentPickAddressBinding.bind(view)
 
         binding.apply {
             recyclerViewPickAddress.apply {
                 setHasFixedSize(true)
-                adapter = addressItemAdapterNew
+                adapter = addressItemAdapter
             }
 
             buttonAddNew.setOnClickListener {
@@ -62,7 +60,7 @@ class PickAddressFragment : Fragment(R.layout.fragment_pick_address), AddressIte
 
         viewModel.customersNew.observe(viewLifecycleOwner) {
             Log.d("CustomerObservers", "$it")
-            addressItemAdapterNew.submitList(it)
+            addressItemAdapter.submitList(it)
         }
 
     }

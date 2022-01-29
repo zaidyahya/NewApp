@@ -1,7 +1,6 @@
 package com.example.theapp.ui.catalogue.fragment
 
 import android.content.Intent
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -10,22 +9,17 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.FileProvider
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.theapp.R
 import com.example.theapp.databinding.FragmentCatalogueBinding
-import com.example.theapp.model.Product
 import com.example.theapp.model.ProductNew
 import com.example.theapp.ui.catalogue.adapter.CatalogueItemAdapter
-import com.example.theapp.ui.catalogue.adapter.CatalogueItemAdapterNew
-import hilt_aggregated_deps._com_example_theapp_ui_myearnings_fragment_EarningsTabFragment_GeneratedInjector
 import java.io.File
 
 class CatalogueFragment : Fragment(R.layout.fragment_catalogue),
-    CatalogueItemAdapterNew.OnItemClickListener {
+    CatalogueItemAdapter.OnItemClickListener {
 
     private var _binding: FragmentCatalogueBinding? = null
     private val binding get() = _binding!!
@@ -33,7 +27,7 @@ class CatalogueFragment : Fragment(R.layout.fragment_catalogue),
     //private val productList = listOf( Product("Product 1", R.drawable.kurta_1), Product("Product 2", R.drawable.orange_small), Product("Product 3", R.drawable.green_big), Product("Product 4", R.drawable.kurta_1) )
     //private val catalogueAdapter = CatalogueItemAdapter(productList, this)
     //private lateinit var catalogueAdapter: CatalogueItemAdapter
-    private lateinit var catalogueAdapterNew: CatalogueItemAdapterNew
+    private lateinit var catalogueAdapter: CatalogueItemAdapter
 
     private val args by navArgs<CatalogueFragmentArgs>()
 
@@ -44,14 +38,14 @@ class CatalogueFragment : Fragment(R.layout.fragment_catalogue),
 
         val catalogue = args.catalogue
         //catalogueAdapter = CatalogueItemAdapter(catalogue.products, this)
-        catalogueAdapterNew = CatalogueItemAdapterNew(catalogue.products, this)
+        catalogueAdapter = CatalogueItemAdapter(catalogue.products, this)
 
         binding.apply{
 
             recyclerViewCatalogue.apply {
                 setHasFixedSize(true)
                 //adapter = catalogueAdapter
-                adapter = catalogueAdapterNew
+                adapter = catalogueAdapter
             }
 
             buttonCopy.setOnClickListener {

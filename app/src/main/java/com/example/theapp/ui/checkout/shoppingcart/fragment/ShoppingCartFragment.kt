@@ -16,7 +16,6 @@ import com.example.theapp.databinding.FragmentShoppingCartBinding
 import com.example.theapp.model.ProductVariant
 import com.example.theapp.model.ShoppingCartItemWithDetails
 import com.example.theapp.ui.checkout.shoppingcart.adapter.ShoppingCartItemAdapter
-import com.example.theapp.ui.checkout.shoppingcart.adapter.ShoppingCartItemNewAdapter
 import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * TODO :- Share Whatsapp other pages
  */
 @AndroidEntryPoint
-class ShoppingCartFragment : Fragment(R.layout.fragment_shopping_cart), ShoppingCartItemNewAdapter.OnItemClickListener,
+class ShoppingCartFragment : Fragment(R.layout.fragment_shopping_cart), ShoppingCartItemAdapter.OnItemClickListener,
 ModifyProductBottomDialog.OnItemClickListener {
 
     //private val viewModel: ShoppingCartViewModel by viewModels()
@@ -42,7 +41,6 @@ ModifyProductBottomDialog.OnItemClickListener {
     //private val shoppingCartAdapter = ShoppingCartItemAdapter(productList, this)
     //private val shoppingCartAdapter = ShoppingCartItemAdapter(this)
     private lateinit var shoppingCartAdapter: ShoppingCartItemAdapter
-    private lateinit var shoppingCartAdapterNew: ShoppingCartItemNewAdapter
 
     //private val modifyProductBottomDialog = ModifyProductBottomDialog()
 
@@ -62,13 +60,13 @@ ModifyProductBottomDialog.OnItemClickListener {
         //val orderItems = mainActivity.cartViewModel.order.value!!.items
         //shoppingCartAdapter = ShoppingCartItemAdapter(orderItems, this)
         //shoppingCartAdapter = ShoppingCartItemAdapter(this)
-        shoppingCartAdapterNew = ShoppingCartItemNewAdapter(this)
+        shoppingCartAdapter = ShoppingCartItemAdapter(this)
 
         binding.apply {
             recyclerViewShoppingCart.apply {
                 //setHasFixedSize(true) //Sets dimensions with initial # of viewModel elements. Thus is not able to show the updated ones. Only works with match_parent because the dims = screen then so enough space. Maybe not required when 'loading' is included with API calls.
                 //adapter = shoppingCartAdapter
-                adapter = shoppingCartAdapterNew
+                adapter = shoppingCartAdapter
             }
 
             textInputLayoutCashCollectValue.doOnTextChanged { text, start, before, count ->
@@ -107,7 +105,7 @@ ModifyProductBottomDialog.OnItemClickListener {
 
         viewModel.shoppingCart.observe(viewLifecycleOwner) {
             Log.d("SCart", "$it")
-            shoppingCartAdapterNew.submitList(it.items)
+            shoppingCartAdapter.submitList(it.items)
 
             binding.textViewProductChargesValue.text = "Rs. ${it.productCharges}"
             binding.textViewOrderTotalValue.text = "Rs. ${it.orderTotal}"

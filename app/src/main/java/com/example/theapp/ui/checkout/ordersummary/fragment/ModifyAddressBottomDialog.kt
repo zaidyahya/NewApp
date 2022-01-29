@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.theapp.databinding.DialogBottomModifyAddressBinding
 import com.example.theapp.model.Customer
+import com.example.theapp.model.CustomerNew
 import com.example.theapp.ui.checkout.pickaddress.adapter.AddressItemAdapter
 import com.example.theapp.ui.checkout.pickaddress.viewmodel.PickAddressViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -52,13 +53,13 @@ class ModifyAddressBottomDialog : BottomSheetDialogFragment(), AddressItemAdapte
         //}
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(id: String, position: Int) {
         //viewModel.onCustomerSelected(position)
     }
 
-    override fun onEditButtonClick(customer: Customer) {
+    override fun onEditButtonClick(customer: CustomerNew) {
     }
 
-    override fun onDeliverButtonClick(customer: Customer) {
+    override fun onDeliverButtonClick(customer: CustomerNew) {
     }
 }
