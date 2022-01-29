@@ -1,7 +1,13 @@
 package com.example.theapp.ui.product.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +19,7 @@ import com.example.theapp.model.ProductNew
 import com.example.theapp.model.ProductVariant
 import com.example.theapp.ui.checkout.shoppingcart.viewmodel.ShoppingCartViewModel
 import com.example.theapp.ui.product.adapter.ProductImagesAdapter
+import java.io.File
 
 class ProductFragment : Fragment(R.layout.fragment_product), AddToCartBottomDialog.OnItemClickListener {
 
@@ -42,7 +49,21 @@ class ProductFragment : Fragment(R.layout.fragment_product), AddToCartBottomDial
             }
 
             textViewName.text = product.name
-            textViewPrice.text = "${product.price}"
+            textViewPrice.text = "Rs. ${product.price}"
+
+            buttonShareNow.setOnClickListener {
+                context?.let {
+                    val imgOne = ImageView(context)
+                    val drawable = AppCompatResources.getDrawable(it, R.drawable.kurta_1)
+                    imgOne.setImageDrawable(drawable)
+
+                    val imgTwo = ImageView(context)
+                    val drawableTwo = AppCompatResources.getDrawable(it, R.drawable.orange_small)
+                    imgTwo.setImageDrawable(drawableTwo)
+
+                    onShareButtonClick(listOf(imgOne, imgTwo))
+                }
+            }
         }
 
     }
@@ -67,6 +88,48 @@ class ProductFragment : Fragment(R.layout.fragment_product), AddToCartBottomDial
         val sizes = product.variants.map{ it.abbreviation }
         val addToCartBottomDialog = AddToCartBottomDialog(sizes,this)
         activity?.let { addToCartBottomDialog.show(it.supportFragmentManager, "AddToCartBottomDialog") }
+
+    }
+
+    private fun onShareButtonClick(images: List<ImageView>) {
+        // For creation of files
+//        for((index, image) in images.withIndex()) {
+//            val drawable = image.drawable
+//
+//            val bmp = if(drawable is BitmapDrawable) {
+//                drawable.bitmap
+//            } else {
+//                null
+//            }
+//
+//            context?.let {
+//                val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_$index.png")
+//                val out = FileOutputStream(file)
+//                bmp?.compress(Bitmap.CompressFormat.PNG, 90, out)
+//                out.close()
+//            }
+//        }
+
+        val pics = ArrayList<Uri>()
+        for((index, image) in images.withIndex()) {
+            context?.let {
+                val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_$index.png")
+                val uri = FileProvider.getUriForFile(it, "com.example.theapp.fileprovider", file)
+                pics.add(uri)
+            }
+        }
+
+        val intent = Intent()
+        //intent.action = Intent.ACTION_SEND // Text x One Image
+        intent.action = Intent.ACTION_SEND_MULTIPLE // Text x Multiple Images (or one)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        intent.`package` = "com.whatsapp"
+        intent.type = "image/*"
+        //intent.putExtra(Intent.EXTRA_STREAM, uriUno) // Single Image
+        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, pics) // Multiple Images
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, "")
+        startActivity(intent)
 
     }
 }

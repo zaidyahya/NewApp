@@ -1,8 +1,17 @@
 package com.example.theapp.ui.catalogue.fragment
 
+import android.content.Intent
+import android.media.Image
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.FileProvider
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -12,8 +21,10 @@ import com.example.theapp.model.Product
 import com.example.theapp.model.ProductNew
 import com.example.theapp.ui.catalogue.adapter.CatalogueItemAdapter
 import com.example.theapp.ui.catalogue.adapter.CatalogueItemAdapterNew
+import hilt_aggregated_deps._com_example_theapp_ui_myearnings_fragment_EarningsTabFragment_GeneratedInjector
+import java.io.File
 
-class CatalogueFragment : Fragment(R.layout.fragment_catalogue), CatalogueItemAdapter.OnItemClickListener,
+class CatalogueFragment : Fragment(R.layout.fragment_catalogue),
     CatalogueItemAdapterNew.OnItemClickListener {
 
     private var _binding: FragmentCatalogueBinding? = null
@@ -47,18 +58,29 @@ class CatalogueFragment : Fragment(R.layout.fragment_catalogue), CatalogueItemAd
                 Log.d("HEY", "YAY!")
             }
 
+
+            buttonShare.setOnClickListener {
+                context?.let {
+                    val imgOne = ImageView(context)
+                    val drawable = AppCompatResources.getDrawable(it, R.drawable.kurta_1)
+                    imgOne.setImageDrawable(drawable)
+
+                    val imgTwo = ImageView(context)
+                    val drawableTwo = AppCompatResources.getDrawable(it, R.drawable.orange_small)
+                    imgTwo.setImageDrawable(drawableTwo)
+
+                    onShareNowButtonClick(listOf(imgOne, imgTwo))
+                }
+            }
+
             textViewHeader.text = catalogue.name
         }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onItemClick(product: Product) {
-        //val action = CatalogueFragmentDirections.actionCatalogueFragmentToProductFragment(product)
-        //findNavController().navigate(action)
     }
 
     override fun onItemClick(product: ProductNew) {
@@ -67,7 +89,45 @@ class CatalogueFragment : Fragment(R.layout.fragment_catalogue), CatalogueItemAd
         findNavController().navigate(action)
     }
 
-    override fun onShareNowButtonClick() {
+    override fun onShareNowButtonClick(images: List<ImageView>) {
         Log.d("CatalogueFragment", "onShareNowButtonClick")
+        // For creation of files
+//        for((index, image) in images.withIndex()) {
+//            val drawable = image.drawable
+//
+//            val bmp = if(drawable is BitmapDrawable) {
+//                drawable.bitmap
+//            } else {
+//                null
+//            }
+//
+//            context?.let {
+//                val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_$index.png")
+//                val out = FileOutputStream(file)
+//                bmp?.compress(Bitmap.CompressFormat.PNG, 90, out)
+//                out.close()
+//            }
+//        }
+
+        val pics = ArrayList<Uri>()
+        for((index, image) in images.withIndex()) {
+            context?.let {
+                val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_$index.png")
+                val uri = FileProvider.getUriForFile(it, "com.example.theapp.fileprovider", file)
+                pics.add(uri)
+            }
+        }
+
+        val intent = Intent()
+        //intent.action = Intent.ACTION_SEND // Text x One Image
+        intent.action = Intent.ACTION_SEND_MULTIPLE // Text x Multiple Images (or one)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        intent.`package` = "com.whatsapp"
+        intent.type = "image/*"
+        //intent.putExtra(Intent.EXTRA_STREAM, uriUno) // Single Image
+        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, pics) // Multiple Images
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, "")
+        startActivity(intent)
     }
 }

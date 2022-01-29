@@ -103,22 +103,22 @@ class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnI
     // Sharing to WhatsApp :- https://guides.codepath.com/android/Sharing-Content-with-Intents
     override fun onShareButtonClick(images: List<ImageView>) {
         // For creation of files
-//        for((index, image) in images.withIndex()) {
-//            val drawable = image.drawable
-//
-//            val bmp = if(drawable is BitmapDrawable) {
-//                drawable.bitmap
-//            } else {
-//                null
-//            }
-//
-//            context?.let {
-//                val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_$index.png")
-//                val out = FileOutputStream(file)
-//                bmp?.compress(Bitmap.CompressFormat.PNG, 90, out)
-//                out.close()
-//            }
-//        }
+        for((index, image) in images.withIndex()) {
+            val drawable = image.drawable
+
+            val bmp = if(drawable is BitmapDrawable) {
+                drawable.bitmap
+            } else {
+                null
+            }
+
+            context?.let {
+                val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_$index.png")
+                val out = FileOutputStream(file)
+                bmp?.compress(Bitmap.CompressFormat.PNG, 90, out)
+                out.close()
+            }
+        }
 
         val pics = ArrayList<Uri>()
         for((index, image) in images.withIndex()) {
@@ -138,7 +138,7 @@ class MarketFragment : Fragment(R.layout.fragment_market), BackupItemAdapter.OnI
         //intent.putExtra(Intent.EXTRA_STREAM, uriUno) // Single Image
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, pics) // Multiple Images
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, "Hello!")
+        intent.putExtra(Intent.EXTRA_TEXT, "")
         startActivity(intent)
 
     }

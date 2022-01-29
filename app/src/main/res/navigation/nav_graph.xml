@@ -188,8 +188,8 @@
     <fragment
         android:id="@+id/shoppingCartEmptyFragment"
         android:name="com.example.theapp.ui.checkout.shoppingcart.fragment.ShoppingCartEmptyFragment"
-        android:label="fragment_shopping_cart_empty"
-        tools:layout="@layout/fragment_shopping_cart_empty" >
+        android:label="Your Cart"
+        tools:layout="@layout/fragment_shopping_cart_empty">
         <action
             android:id="@+id/action_shoppingCartEmptyFragment_to_marketFragment"
             app:destination="@id/marketFragment"

@@ -52,6 +52,7 @@ class BackupItemAdapterNew(
                 imageViewImageTwo.setImageResource(R.drawable.kurta_1)
                 imageViewImageThree.setImageResource(R.drawable.orange_small)
                 textViewName.text = catalogue.name
+                textViewPrice.text = "Rs. ${catalogue.products.minOf{ it.price }}"
 
                 buttonShareNow.setOnClickListener {
                     listener.onShareButtonClick(listOf(imageViewImageOne, imageViewImageTwo, imageViewImageThree))

@@ -2,6 +2,7 @@ package com.example.theapp.ui.catalogue.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.theapp.R
 import com.example.theapp.databinding.ItemCatalogueBinding
@@ -38,6 +39,10 @@ class CatalogueItemAdapterNew(
                         listener.onItemClick(product)
                     }
                 }
+
+                buttonShareNow.setOnClickListener {
+                    listener.onShareNowButtonClick(listOf(imageViewImage))
+                }
             }
         }
 
@@ -53,6 +58,6 @@ class CatalogueItemAdapterNew(
 
     interface OnItemClickListener {
         fun onItemClick(product: ProductNew)
-        fun onShareNowButtonClick()
+        fun onShareNowButtonClick(images: List<ImageView>)
     }
 }

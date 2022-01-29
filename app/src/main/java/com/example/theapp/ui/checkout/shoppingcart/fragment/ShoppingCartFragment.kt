@@ -23,8 +23,10 @@ import dagger.hilt.android.AndroidEntryPoint
 /**
  * TODO :- MarginEarn textcolor change. Checks such as :- negative margin, empty cash collect. When error is there, remove upon retype. Error icon takes too much space
  * TODO :- Go to Product page from individual product in cart. Why? If one wants to add a different size, would have to browse again to find it.
- * TODO :- Images + Images Scroller
- * TODO :- Search bar, Category filtering, Navigation (Anim + Headers + Pop-Ups), Dialog TextInputs Fixing
+ * TODO :- Images with URL
+ * TODO :- Dialogs for CoD, Margin etc
+ * TODO :- IDs of Orders and in general, should they be Ints?
+ * TODO :- Share Whatsapp other pages
  */
 @AndroidEntryPoint
 class ShoppingCartFragment : Fragment(R.layout.fragment_shopping_cart), ShoppingCartItemNewAdapter.OnItemClickListener,
@@ -112,7 +114,7 @@ ModifyProductBottomDialog.OnItemClickListener {
         }
 
         /**
-         * TODO :- Fix this recurring display
+         * TODO :- Fix this recurring display of modify dialog due to how livedata works.
          */
         viewModel.selectedCartItemProductVariants.observe(viewLifecycleOwner) { productVariants ->
             Log.d("I AM HERE", "$productVariants")
