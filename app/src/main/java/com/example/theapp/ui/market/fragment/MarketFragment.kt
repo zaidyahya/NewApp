@@ -92,7 +92,7 @@ class MarketFragment : Fragment(R.layout.fragment_market), MarketPagingAdapter.O
             }
         }
 
-        //viewModel.insert()
+        //viewModel.insert() // Required the first time to insert values into in-memory DB, otherwise query calls fail
 
     }
 
